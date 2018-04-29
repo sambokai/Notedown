@@ -1,3 +1,4 @@
+/* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -7,14 +8,14 @@ class TextEditor extends React.Component {
     super(props);
 
     this.state = {
-      noteBody: '',
+      noteText: this.props.note.body,
     };
 
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(e) {
-    this.setState({ noteBody: e.target.value });
+    this.setState({ noteText: e.target.value });
   }
 
   render() {
@@ -29,7 +30,7 @@ class TextEditor extends React.Component {
           cols={100}
           style={textAreaStyle}
           placeholder={this.props.placeholder}
-          value={this.state.noteBody}
+          value={this.state.noteText}
           onChange={this.handleChange}
         />
       </div>
@@ -39,6 +40,7 @@ class TextEditor extends React.Component {
 
 TextEditor.propTypes = {
   placeholder: PropTypes.string,
+  note: PropTypes.object.isRequired,
 };
 
 TextEditor.defaultProps = {
