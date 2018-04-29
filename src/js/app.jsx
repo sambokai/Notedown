@@ -1,21 +1,14 @@
+/* eslint-disable react/prefer-stateless-function */
+
 import React from 'react';
 import { render } from 'react-dom';
 
-class Hello extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: 'Sam',
-    };
-  }
+import TextEditor from './components/texteditor';
 
+class App extends React.Component {
   render() {
-    return (
-      <h3>
-        Hello, {this.state.name}! I am React.
-      </h3>
-    );
+    return <TextEditor />;
   }
 }
 
-render(<Hello />, document.getElementById('app'));
+render(<App />, document.getElementById('app'));
