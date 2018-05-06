@@ -30,11 +30,13 @@ class App extends React.Component {
     this.setState({ notes });
   };
 
-  addNote(noteText) {
+  addEmptyNote = () => {
+    const newNoteId = this.increaseNotesCounter();
     this.setState({
-      notes: this.state.notes.concat([new Note(noteText, this.increaseNotesCounter())]),
+      notes: this.state.notes.concat([new Note('', newNoteId)]),
     });
-  }
+    this.setState({ selectedNote: newNoteId });
+  };
 
   increaseNotesCounter() {
     const nextNumber = this.state.noteCounter + 1;
@@ -49,6 +51,7 @@ class App extends React.Component {
         <NoteSelectionList
           notes={this.state.notes}
           onSelectNote={this.handleNotesListClick}
+          onCreateNote={this.addEmptyNote}
         />
         <TextEditor
           note={this.state.notes.find(note => note.id === this.state.selectedNote)}

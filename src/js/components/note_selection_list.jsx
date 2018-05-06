@@ -17,6 +17,7 @@ class NoteSelectionList extends React.Component {
   render() {
     return (
       <div>
+        <button onClick={this.props.onCreateNote}>New Note</button>
         <ul>
           {/* eslint-disable jsx-a11y/anchor-is-valid */}
           {this.props.notes.map(note =>
@@ -41,6 +42,7 @@ NoteSelectionList.propTypes = {
 // eslint-disable-next-line react/forbid-prop-types
   notes: PropTypes.arrayOf(PropTypes.object).isRequired,
   onSelectNote: PropTypes.func.isRequired,
+  onCreateNote: PropTypes.func.isRequired,
 };
 
 
