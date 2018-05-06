@@ -17,21 +17,24 @@ class NoteSelectionList extends React.Component {
   render() {
     return (
       <div>
-        <button onClick={this.props.onCreateNote}>New Note</button>
-        <ul>
+        <div className="row justify-content-center pb-1">
+          <button
+            onClick={this.props.onCreateNote}
+            type="button"
+            className="btn btn-primary"
+          >New Note
+          </button>
+        </div>
+        <div className="list-group">
           {/* eslint-disable jsx-a11y/anchor-is-valid */}
           {this.props.notes.map(note =>
             (
-              <li key={note.id}>
-                <a
-                  href="#"
-                  onClick={() => this.handleNoteSelection(note)}
-                >{note.id}: {NoteSelectionList.truncate(note.body, 25)}
-                </a>
-              </li>
+              <a href="#" key={note.id} className={`d-flex justify-content-between align-items-center list-group-item list-group-item-action ${(this.props.selectedNote === note.id) ? 'active' : ''}`} onClick={() => this.handleNoteSelection(note)}>
+                {note.id}: {NoteSelectionList.truncate(note.body, 20)}
+              </a>
             ))
           }
-        </ul>
+        </div>
       </div>
 
     );
@@ -43,6 +46,7 @@ NoteSelectionList.propTypes = {
   notes: PropTypes.arrayOf(PropTypes.object).isRequired,
   onSelectNote: PropTypes.func.isRequired,
   onCreateNote: PropTypes.func.isRequired,
+  selectedNote: PropTypes.number.isRequired,
 };
 
 

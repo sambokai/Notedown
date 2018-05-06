@@ -19,23 +19,21 @@ class App extends React.Component {
     };
   }
 
-  handleNotesListClick = (note) => {
-    this.setState({ selectedNote: note.id });
-  };
-
   handleTextEditorNoteUpdate = (newText) => {
     const notes = this.state.notes.slice();
     const indexOfOldNote = notes.findIndex(note => note.id === this.state.selectedNote);
     notes[indexOfOldNote] = new Note(newText, this.state.selectedNote);
     this.setState({ notes });
   };
-
   addEmptyNote = () => {
     const newNoteId = this.increaseNotesCounter();
     this.setState({
       notes: this.state.notes.concat([new Note('', newNoteId)]),
     });
     this.setState({ selectedNote: newNoteId });
+  };
+  handleNotesListClick = (note) => {
+    this.setState({ selectedNote: note.id });
   };
 
   increaseNotesCounter() {
@@ -47,16 +45,23 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <NoteSelectionList
-          notes={this.state.notes}
-          onSelectNote={this.handleNotesListClick}
-          onCreateNote={this.addEmptyNote}
-        />
-        <TextEditor
-          note={this.state.notes.find(note => note.id === this.state.selectedNote)}
-          onUpdateNote={this.handleTextEditorNoteUpdate}
-        />
+      <div className="container">
+        <div className="row py-1 ">
+          <div className="col">
+            <NoteSelectionList
+              notes={this.state.notes}
+              onSelectNote={this.handleNotesListClick}
+              onCreateNote={this.addEmptyNote}
+              selectedNote={this.state.selectedNote}
+            />
+          </div>
+          <div className="col-8 ">
+            <TextEditor
+              note={this.state.notes.find(note => note.id === this.state.selectedNote)}
+              onUpdateNote={this.handleTextEditorNoteUpdate}
+            />
+          </div>
+        </div>
       </div>
     );
   }
