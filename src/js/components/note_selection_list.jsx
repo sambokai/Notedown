@@ -10,8 +10,8 @@ class NoteSelectionList extends React.Component {
     return string;
   }
 
-  handleNoteSelection(e, note) {
-    this.props.onSelectNote(e, note);
+  handleNoteSelection(note) {
+    this.props.onSelectNote(note);
   }
 
   render() {
@@ -29,8 +29,13 @@ class NoteSelectionList extends React.Component {
           {/* eslint-disable jsx-a11y/anchor-is-valid */}
           {this.props.notes.map(note =>
             (
-              <a href="#" key={note.id} className={`d-flex justify-content-between align-items-center list-group-item list-group-item-action ${(this.props.selectedNote === note.id) ? 'active' : ''}`} onClick={() => this.handleNoteSelection(note)}>
-                {note.id}: {NoteSelectionList.truncate(note.body, 20)}
+              <a
+                href="#"
+                key={note.id}
+                className={`d-flex justify-content-between align-items-center list-group-item list-group-item-action ${(this.props.selectedNote === note.id) ? 'active' : ''}`}
+                onClick={() => this.handleNoteSelection(note)}
+              >
+                {NoteSelectionList.truncate(note.body, 25)}
               </a>
             ))
           }

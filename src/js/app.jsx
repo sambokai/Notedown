@@ -15,7 +15,7 @@ class App extends React.Component {
     this.state = {
       notes: [new Note('This is a note.', 1), new Note('This is a journal entry.', 2)],
       selectedNote: 1,
-      noteCounter: 2,
+      noteIdCounter: 2,
     };
   }
 
@@ -25,6 +25,7 @@ class App extends React.Component {
     notes[indexOfOldNote] = new Note(newText, this.state.selectedNote);
     this.setState({ notes });
   };
+
   addEmptyNote = () => {
     const newNoteId = this.increaseNotesCounter();
     this.setState({
@@ -32,13 +33,14 @@ class App extends React.Component {
     });
     this.setState({ selectedNote: newNoteId });
   };
+
   handleNotesListClick = (note) => {
     this.setState({ selectedNote: note.id });
   };
 
   increaseNotesCounter() {
-    const nextNumber = this.state.noteCounter + 1;
-    this.setState({ noteCounter: nextNumber });
+    const nextNumber = this.state.noteIdCounter + 1;
+    this.setState({ noteIdCounter: nextNumber });
     return nextNumber;
   }
 
