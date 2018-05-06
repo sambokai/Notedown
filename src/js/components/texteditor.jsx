@@ -4,19 +4,24 @@ import PropTypes from 'prop-types';
 
 
 class TextEditor extends React.Component {
+  static getDerivedStateFromProps(nextProps) {
+    return {
+      noteText: nextProps.note.body,
+    };
+  }
+
   constructor(props) {
     super(props);
 
     this.state = {
-      noteText: this.props.note.body,
+      noteText: props.note.body,
     };
-
-    this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange(e) {
+  handleChange = (e) => {
     this.setState({ noteText: e.target.value });
-  }
+    this.props.onUpdateNote(e.target.value);
+  };
 
   render() {
     const textAreaStyle = {
@@ -41,6 +46,7 @@ class TextEditor extends React.Component {
 TextEditor.propTypes = {
   placeholder: PropTypes.string,
   note: PropTypes.object.isRequired,
+  onUpdateNote: PropTypes.func.isRequired,
 };
 
 TextEditor.defaultProps = {

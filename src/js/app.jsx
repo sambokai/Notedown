@@ -13,11 +13,22 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      notes: [new Note('This is a note.', 1), new Note('This is journal entry.', 2)],
-      selectedNote: 0,
+      notes: [new Note('This is a note.', 1), new Note('This is a journal entry.', 2)],
+      selectedNote: 1,
       noteCounter: 2,
     };
   }
+
+  handleNotesListClick = (note) => {
+    this.setState({ selectedNote: note.id });
+  };
+
+  handleTextEditorNoteUpdate = (newText) => {
+    const notes = this.state.notes.slice();
+    const indexOfOldNote = notes.findIndex(note => note.id === this.state.selectedNote);
+    notes[indexOfOldNote] = new Note(newText, this.state.selectedNote);
+    this.setState({ notes });
+  };
 
   addNote(noteText) {
     this.setState({
@@ -35,8 +46,14 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <NoteSelectionList notes={this.state.notes} />
-        <TextEditor note={this.state.notes[this.state.selectedNote]} />;
+        <NoteSelectionList
+          notes={this.state.notes}
+          onSelectNote={this.handleNotesListClick}
+        />
+        <TextEditor
+          note={this.state.notes.find(note => note.id === this.state.selectedNote)}
+          onUpdateNote={this.handleTextEditorNoteUpdate}
+        />
       </div>
     );
   }

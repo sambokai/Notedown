@@ -10,6 +10,10 @@ class NoteSelectionList extends React.Component {
     return string;
   }
 
+  handleNoteSelection(e, note) {
+    this.props.onSelectNote(e, note);
+  }
+
   render() {
     return (
       <ul>
@@ -17,7 +21,7 @@ class NoteSelectionList extends React.Component {
         {this.props.notes.map(note =>
           (
             <li key={note.id}>
-              <a href="#">{note.id}: {NoteSelectionList.truncate(note.body, 25)}</a>
+              <a href="#" onClick={() => this.handleNoteSelection(note)}>{note.id}: {NoteSelectionList.truncate(note.body, 25)}</a>
             </li>
           ))
         }
@@ -29,6 +33,7 @@ class NoteSelectionList extends React.Component {
 NoteSelectionList.propTypes = {
 // eslint-disable-next-line react/forbid-prop-types
   notes: PropTypes.arrayOf(PropTypes.object).isRequired,
+  onSelectNote: PropTypes.func.isRequired,
 };
 
 
