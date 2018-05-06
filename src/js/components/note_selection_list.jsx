@@ -16,16 +16,23 @@ class NoteSelectionList extends React.Component {
 
   render() {
     return (
-      <ul>
-        {/* eslint-disable jsx-a11y/anchor-is-valid */}
-        {this.props.notes.map(note =>
-          (
-            <li key={note.id}>
-              <a href="#" onClick={() => this.handleNoteSelection(note)}>{note.id}: {NoteSelectionList.truncate(note.body, 25)}</a>
-            </li>
-          ))
-        }
-      </ul>
+      <div>
+        <ul>
+          {/* eslint-disable jsx-a11y/anchor-is-valid */}
+          {this.props.notes.map(note =>
+            (
+              <li key={note.id}>
+                <a
+                  href="#"
+                  onClick={() => this.handleNoteSelection(note)}
+                >{note.id}: {NoteSelectionList.truncate(note.body, 25)}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
     );
   }
 }
