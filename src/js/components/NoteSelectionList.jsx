@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { Droppable, Draggable } from 'react-beautiful-dnd';
+
+
 // eslint-disable-next-line react/prefer-stateless-function
 class NoteSelectionList extends React.Component {
   static truncate(string, maxCharacterSize) {
@@ -25,22 +28,31 @@ class NoteSelectionList extends React.Component {
           >New Note
           </button>
         </div>
-        <div className="list-group">
-          {/* eslint-disable jsx-a11y/anchor-is-valid */}
-          {this.props.notes.map(note =>
-            (
-              <a
-                href="#"
-                key={note.id}
-                className={`d-flex justify-content-between align-items-center list-group-item list-group-item-action ${(this.props.selectedNote === note.id) ? 'active' : ''}`}
-                onClick={() => this.handleNoteSelection(note)}
-                id="note-list-item"
-              >
-                {NoteSelectionList.truncate(note.body, 25)}
-              </a>
-            ))
-          }
-        </div>
+        <Droppable droppableId="notesListDroppable">
+          {droppableProvided => (
+            <div className="list-group" ref={droppableProvided.innerRef}>
+              {/* eslint-disable jsx-a11y/anchor-is-valid */}
+              {this.props.notes.map((note, index) =>
+                (
+                  <Draggable draggableId={note.id} key={note.id} index={index}>
+                    {(draggableProvided, draggableSnapshot) => (
+                      <a
+                        ref={draggableProvided.innerRef}
+                        {...draggableProvided.draggableProps}
+                        {...draggableProvided.dragHandleProps}
+                        href="#"
+                        className={`d-flex justify-content-between align-items-center list-group-item list-group-item-action ${(this.props.selectedNote === note.id) && !draggableSnapshot.isDragging ? 'active' : ''}`}
+                        onClick={() => this.handleNoteSelection(note)}
+                        id="note-list-item"
+                      >
+                        {NoteSelectionList.truncate(note.body, 25)}
+                      </a>)}
+                  </Draggable>
+                ))
+              }
+              {droppableProvided.placeholder}
+            </div>)}
+        </Droppable>
       </div>
 
     );

@@ -3,12 +3,23 @@
 import React from 'react';
 import { render } from 'react-dom';
 
+import { DragDropContext } from 'react-beautiful-dnd';
+
+
 import Note from './model/Note';
 
 import TextEditor from './components/TextEditor';
 import NoteSelectionList from './components/NoteSelectionList';
 
 class App extends React.Component {
+  static reorder(list, startIndex, endIndex) {
+    const result = Array.from(list);
+    const [removed] = result.splice(startIndex, 1);
+    result.splice(endIndex, 0, removed);
+
+    return result;
+  }
+
   constructor(props) {
     super(props);
 
@@ -18,6 +29,23 @@ class App extends React.Component {
       noteIdCounter: 2,
     };
   }
+
+  onDragEnd = (result) => {
+    // dropped outside the list
+    if (!result.destination) {
+      return;
+    }
+
+    const notes = this.reorder(
+      this.notes.items,
+      result.source.index,
+      result.destination.index,
+    );
+
+    this.setState({
+      notes,
+    });
+  };
 
   handleTextEditorNoteUpdate = (newText) => {
     const notes = this.state.notes.slice();
@@ -44,27 +72,42 @@ class App extends React.Component {
     return nextNumber;
   }
 
+  dragDropContext(content) {
+    return (
+      <DragDropContext
+        onDragEnd={this.onDragEnd}
+      >
+        {content}
+      </DragDropContext>
+    );
+  }
+
 
   render() {
+    const components = {
+      app: (
+        <div className="container">
+          <div className="row py-1 ">
+            <div className="col">
+              <NoteSelectionList
+                notes={this.state.notes}
+                onSelectNote={this.handleNotesListClick}
+                onCreateNote={this.addEmptyNote}
+                selectedNote={this.state.selectedNote}
+              />
+            </div>
+            <div className="col-8 ">
+              <TextEditor
+                note={this.state.notes.find(note => note.id === this.state.selectedNote)}
+                onUpdateNote={this.handleTextEditorNoteUpdate}
+              />
+            </div>
+          </div>
+        </div>),
+    };
+
     return (
-      <div className="container">
-        <div className="row py-1 ">
-          <div className="col">
-            <NoteSelectionList
-              notes={this.state.notes}
-              onSelectNote={this.handleNotesListClick}
-              onCreateNote={this.addEmptyNote}
-              selectedNote={this.state.selectedNote}
-            />
-          </div>
-          <div className="col-8 ">
-            <TextEditor
-              note={this.state.notes.find(note => note.id === this.state.selectedNote)}
-              onUpdateNote={this.handleTextEditorNoteUpdate}
-            />
-          </div>
-        </div>
-      </div>
+      this.dragDropContext(components.app)
     );
   }
 }
