@@ -83,7 +83,7 @@ class App extends React.Component {
       app: (
         <div className="container">
           <div className="row py-1 ">
-            <div className="col">
+            <div className="col-4">
               <NoteSelectionList
                 notes={this.state.notes}
                 onSelectNote={this.handleNotesListClick}

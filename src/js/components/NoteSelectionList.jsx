@@ -6,17 +6,13 @@ import { Droppable, Draggable } from 'react-beautiful-dnd';
 
 // eslint-disable-next-line react/prefer-stateless-function
 class NoteSelectionList extends React.Component {
-  static truncate(string, maxCharacterSize) {
-    if (string.length > maxCharacterSize) {
-      return `${string.substring(0, maxCharacterSize)}...`;
-    }
-    return string;
+  static getNoteTitle(noteBody) {
+    return noteBody.match(/\n*.*(\n|$)/)[0].trim();
   }
 
   handleNoteSelection(noteIndex) {
     this.props.onSelectNote(noteIndex);
   }
-
   render() {
     return (
       <div>
@@ -41,11 +37,11 @@ class NoteSelectionList extends React.Component {
                         {...draggableProvided.draggableProps}
                         {...draggableProvided.dragHandleProps}
                         href="#"
-                        className={`d-flex justify-content-between align-items-center list-group-item list-group-item-action ${(this.props.selectedNote === index) && !draggableSnapshot.isDragging ? 'active' : ''}`}
+                        className={`d-inline-block justify-content-between align-items-center list-group-item list-group-item-action text-truncate ${(this.props.selectedNote === index) && !draggableSnapshot.isDragging ? 'active' : ''}`}
                         onClick={() => this.handleNoteSelection(index)}
                         id="note-list-item"
                       >
-                        {NoteSelectionList.truncate(note.body, 25)}
+                        {NoteSelectionList.getNoteTitle(note.body)}
                       </a>)}
                   </Draggable>
                 ))
