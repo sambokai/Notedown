@@ -13,8 +13,8 @@ class NoteSelectionList extends React.Component {
     return string;
   }
 
-  handleNoteSelection(note) {
-    this.props.onSelectNote(note);
+  handleNoteSelection(noteIndex) {
+    this.props.onSelectNote(noteIndex);
   }
 
   render() {
@@ -41,8 +41,8 @@ class NoteSelectionList extends React.Component {
                         {...draggableProvided.draggableProps}
                         {...draggableProvided.dragHandleProps}
                         href="#"
-                        className={`d-flex justify-content-between align-items-center list-group-item list-group-item-action ${(this.props.selectedNote === note.id) && !draggableSnapshot.isDragging ? 'active' : ''}`}
-                        onClick={() => this.handleNoteSelection(note)}
+                        className={`d-flex justify-content-between align-items-center list-group-item list-group-item-action ${(this.props.selectedNote === index) && !draggableSnapshot.isDragging ? 'active' : ''}`}
+                        onClick={() => this.handleNoteSelection(index)}
                         id="note-list-item"
                       >
                         {NoteSelectionList.truncate(note.body, 25)}

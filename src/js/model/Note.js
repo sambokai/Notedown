@@ -1,7 +1,16 @@
+let noteIdCounter = 0;
+
+const increment = () => {
+  noteIdCounter += 1;
+  return noteIdCounter;
+};
+
 class Note {
-  constructor(body, id) {
+  constructor(body) {
+    // noinspection JSUnusedGlobalSymbols
     this.body = body;
-    this.id = id;
+    // noinspection JSUnusedGlobalSymbols
+    this.id = increment();
   }
 }
 

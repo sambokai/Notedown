@@ -24,9 +24,8 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      notes: [new Note('This is a note.', 1), new Note('This is a journal entry.', 2)],
-      selectedNote: 1,
-      noteIdCounter: 2,
+      notes: [new Note('This is a note.'), new Note('This is a journal entry.')],
+      selectedNote: 0,
     };
   }
 
@@ -36,41 +35,37 @@ class App extends React.Component {
       return;
     }
 
-    const notes = this.reorder(
-      this.notes.items,
+    const selectedNoteId = this.state.notes[this.state.selectedNote].id;
+
+    const notes = App.reorder(
+      this.state.notes,
       result.source.index,
       result.destination.index,
     );
 
     this.setState({
       notes,
+      selectedNote: notes.findIndex(note => note.id === selectedNoteId),
     });
   };
 
   handleTextEditorNoteUpdate = (newText) => {
     const notes = this.state.notes.slice();
-    const indexOfOldNote = notes.findIndex(note => note.id === this.state.selectedNote);
-    notes[indexOfOldNote] = new Note(newText, this.state.selectedNote);
+    notes[this.state.selectedNote].body = newText;
     this.setState({ notes });
   };
 
   addEmptyNote = () => {
-    const newNoteId = this.increaseNotesCounter();
+    const newNote = new Note('');
     this.setState({
-      notes: this.state.notes.concat([new Note('', newNoteId)]),
+      notes: this.state.notes.concat([newNote]),
+      selectedNote: this.state.notes.length,
     });
-    this.setState({ selectedNote: newNoteId });
   };
 
-  handleNotesListClick = (note) => {
-    this.setState({ selectedNote: note.id });
+  handleNotesListClick = (noteIndex) => {
+    this.setState({ selectedNote: noteIndex });
   };
-
-  increaseNotesCounter() {
-    const nextNumber = this.state.noteIdCounter + 1;
-    this.setState({ noteIdCounter: nextNumber });
-    return nextNumber;
-  }
 
   dragDropContext(content) {
     return (
@@ -98,7 +93,7 @@ class App extends React.Component {
             </div>
             <div className="col-8 ">
               <TextEditor
-                note={this.state.notes.find(note => note.id === this.state.selectedNote)}
+                note={this.state.notes[this.state.selectedNote].body}
                 onUpdateNote={this.handleTextEditorNoteUpdate}
               />
             </div>

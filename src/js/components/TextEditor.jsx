@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 class TextEditor extends React.Component {
   static getDerivedStateFromProps(nextProps) {
     return {
-      noteText: nextProps.note.body,
+      noteText: nextProps.note,
     };
   }
 
@@ -14,7 +14,7 @@ class TextEditor extends React.Component {
     super(props);
 
     this.state = {
-      noteText: props.note.body,
+      noteText: props.note,
     };
   }
 
@@ -45,7 +45,7 @@ class TextEditor extends React.Component {
 
 TextEditor.propTypes = {
   placeholder: PropTypes.string,
-  note: PropTypes.object.isRequired,
+  note: PropTypes.string.isRequired,
   onUpdateNote: PropTypes.func.isRequired,
 };
 
