@@ -34,6 +34,7 @@ class NoteSelectionList extends React.Component {
                 key={note.id}
                 className={`d-flex justify-content-between align-items-center list-group-item list-group-item-action ${(this.props.selectedNote === note.id) ? 'active' : ''}`}
                 onClick={() => this.handleNoteSelection(note)}
+                id="note-list-item"
               >
                 {NoteSelectionList.truncate(note.body, 25)}
               </a>

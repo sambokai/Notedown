@@ -1,0 +1,3 @@
+#note-list-item:empty:before {
+    content: "\00a0";
+}
