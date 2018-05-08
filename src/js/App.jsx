@@ -5,8 +5,8 @@ import { render } from 'react-dom';
 
 import Note from './model/Note';
 
-import TextEditor from './components/texteditor';
-import NoteSelectionList from './components/note_selection_list';
+import TextEditor from './components/TextEditor';
+import NoteSelectionList from './components/NoteSelectionList';
 
 class App extends React.Component {
   constructor(props) {
