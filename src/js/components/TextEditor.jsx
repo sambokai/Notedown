@@ -2,24 +2,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-
 class TextEditor extends React.Component {
-  static getDerivedStateFromProps(nextProps) {
-    return {
-      noteText: nextProps.note,
-    };
-  }
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      noteText: props.note,
-    };
-  }
-
   handleChange = (e) => {
-    this.setState({ noteText: e.target.value });
     this.props.onUpdateNote(e.target.value);
   };
 
@@ -34,7 +18,7 @@ class TextEditor extends React.Component {
         rows={15}
         style={textAreaStyle}
         placeholder={this.props.placeholder}
-        value={this.state.noteText}
+        value={this.props.note}
         onChange={this.handleChange}
       />
     );
