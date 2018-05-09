@@ -24,7 +24,7 @@ class App extends React.Component {
 
     this.state = {
       notes: [new Note('This is a note.'), new Note('This is a journal entry.')],
-      selectedNote: 0,
+      selectedNoteIndex: 0,
     };
 
     this.textEditorTextarea = React.createRef();
@@ -40,7 +40,7 @@ class App extends React.Component {
       return;
     }
 
-    const selectedNoteId = this.state.notes[this.state.selectedNote].id;
+    const selectedNoteId = this.state.notes[this.state.selectedNoteIndex].id;
 
     const notes = App.reorder(
       this.state.notes,
@@ -50,13 +50,13 @@ class App extends React.Component {
 
     this.setState({
       notes,
-      selectedNote: notes.findIndex(note => note.id === selectedNoteId),
+      selectedNoteIndex: notes.findIndex(note => note.id === selectedNoteId),
     });
   };
 
   handleTextEditorNoteUpdate = (newText) => {
     const notes = this.state.notes.slice();
-    notes[this.state.selectedNote].body = newText;
+    notes[this.state.selectedNoteIndex].body = newText;
     this.setState({ notes });
   };
 
@@ -65,14 +65,14 @@ class App extends React.Component {
 
     this.setState({
       notes: this.state.notes.concat([newNote]),
-      selectedNote: this.state.notes.length,
+      selectedNoteIndex: this.state.notes.length,
     });
 
     this.focusTextEditorTextarea();
   };
 
   handleNotesListClick = (noteIndex) => {
-    this.setState({ selectedNote: noteIndex });
+    this.setState({ selectedNoteIndex: noteIndex });
   };
 
   dragDropContext(content) {
@@ -101,12 +101,12 @@ class App extends React.Component {
               <NoteSelectionList
                 notes={this.state.notes}
                 onSelectNote={this.handleNotesListClick}
-                selectedNote={this.state.selectedNote}
+                selectedNote={this.state.selectedNoteIndex}
               />
             </div>
             <div className="col-8 ">
               <TextEditor
-                note={this.state.notes[this.state.selectedNote].body}
+                note={this.state.notes[this.state.selectedNoteIndex].body}
                 onUpdateNote={this.handleTextEditorNoteUpdate}
                 ref={this.textEditorTextarea}
               />
