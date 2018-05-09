@@ -66,6 +66,7 @@ class App extends React.Component {
     this.setState({ notes });
   };
 
+  // eslint-disable-next-line no-unused-vars
   noteSelectionChanged(oldNoteIndex, newNoteIndex) {
     // Delete note if it is empty and user switches to another one
     if (this.state.notes[oldNoteIndex] && !this.state.notes[oldNoteIndex].body) {
@@ -117,6 +118,7 @@ class App extends React.Component {
         <div className="container">
           <ActionBar
             onCreateNote={this.addEmptyNote}
+            onDeleteNote={() => this.deleteNote(this.state.selectedNoteIndex)}
           />
           <div className="row py-1 ">
             <div className="col-4">

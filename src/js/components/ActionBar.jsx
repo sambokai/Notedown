@@ -7,14 +7,22 @@ import PropTypes from 'prop-types';
 class ActionBar extends React.Component {
   render() {
     return (
-      <nav className="navbar navbar-dark bg-dark">
+      <nav className="navbar navbar-dark bg-dark justify-content-between">
         <a className="navbar-brand" href="#">Notedown</a>
-        <button
-          onClick={this.props.onCreateNote}
-          type="button"
-          className="btn btn-primary"
-        >New Note
-        </button>
+        <form className="form-inline">
+          <button
+            onClick={this.props.onCreateNote}
+            type="button"
+            className="btn btn-primary ml-2"
+          >New Note
+          </button>
+          <button
+            onClick={this.props.onDeleteNote}
+            type="button"
+            className="btn btn-danger ml-2"
+          >Delete
+          </button>
+        </form>
       </nav>
     );
   }
@@ -22,6 +30,7 @@ class ActionBar extends React.Component {
 
 ActionBar.propTypes = {
   onCreateNote: PropTypes.func.isRequired,
+  onDeleteNote: PropTypes.func.isRequired,
 };
 
 
