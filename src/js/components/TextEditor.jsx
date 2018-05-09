@@ -29,16 +29,14 @@ class TextEditor extends React.Component {
     };
 
     return (
-      <div>
-        <textarea
-          rows={20}
-          cols={100}
-          style={textAreaStyle}
-          placeholder={this.props.placeholder}
-          value={this.state.noteText}
-          onChange={this.handleChange}
-        />
-      </div>
+      <textarea
+        className="w-100"
+        rows={15}
+        style={textAreaStyle}
+        placeholder={this.props.placeholder}
+        value={this.state.noteText}
+        onChange={this.handleChange}
+      />
     );
   }
 }

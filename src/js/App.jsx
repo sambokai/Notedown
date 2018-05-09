@@ -10,6 +10,7 @@ import Note from './model/Note';
 
 import TextEditor from './components/TextEditor';
 import NoteSelectionList from './components/NoteSelectionList';
+import ActionBar from './components/ActionBar';
 
 class App extends React.Component {
   static reorder(list, startIndex, endIndex) {
@@ -82,12 +83,14 @@ class App extends React.Component {
     const components = {
       app: (
         <div className="container">
+          <ActionBar
+            onCreateNote={this.addEmptyNote}
+          />
           <div className="row py-1 ">
             <div className="col-4">
               <NoteSelectionList
                 notes={this.state.notes}
                 onSelectNote={this.handleNotesListClick}
-                onCreateNote={this.addEmptyNote}
                 selectedNote={this.state.selectedNote}
               />
             </div>
