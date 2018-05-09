@@ -1,5 +1,3 @@
-/* eslint-disable react/prefer-stateless-function */
-
 import React from 'react';
 import { render } from 'react-dom';
 
@@ -30,6 +28,10 @@ class App extends React.Component {
     };
 
     this.textEditorTextarea = React.createRef();
+  }
+
+  componentDidMount() {
+    this.focusTextEditorTextarea();
   }
 
   onDragEnd = (result) => {
