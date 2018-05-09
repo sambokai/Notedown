@@ -13,7 +13,7 @@ class ActionBar extends React.Component {
           <button
             onClick={this.props.onCreateNote}
             type="button"
-            className="btn btn-primary ml-2"
+            className={`btn btn-primary ml-2 ${this.props.noteCreationAllowed ? '' : 'disabled'}`}
           >New Note
           </button>
           <button
@@ -31,6 +31,7 @@ class ActionBar extends React.Component {
 ActionBar.propTypes = {
   onCreateNote: PropTypes.func.isRequired,
   onDeleteNote: PropTypes.func.isRequired,
+  noteCreationAllowed: PropTypes.bool.isRequired,
 };
 
 

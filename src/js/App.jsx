@@ -25,6 +25,7 @@ class App extends React.Component {
     this.state = {
       notes: [new Note('This is a note.'), new Note('This is a journal entry.')],
       selectedNoteIndex: 0,
+      noteCreationAllowed: true,
     };
 
     this.textEditorTextarea = React.createRef();
@@ -60,14 +61,21 @@ class App extends React.Component {
     });
   };
 
+
+  setAllowNoteCreation = (bool) => {
+    this.setState({ noteCreationAllowed: bool });
+  };
+
   handleTextEditorNoteUpdate = (newText) => {
+    if (newText === '') { this.setAllowNoteCreation(false); } else this.setAllowNoteCreation(true);
+
     const notes = this.state.notes.slice();
     notes[this.state.selectedNoteIndex].body = newText;
     this.setState({ notes });
   };
 
   // eslint-disable-next-line no-unused-vars
-  noteSelectionChanged(oldNoteIndex, newNoteIndex) {
+  noteSelectionChanged(oldNoteIndex) {
     // Delete note if it is empty and user switches to another one
     if (this.state.notes[oldNoteIndex] && !this.state.notes[oldNoteIndex].body) {
       this.deleteNote(oldNoteIndex);
@@ -75,24 +83,28 @@ class App extends React.Component {
   }
 
   addEmptyNote = () => {
-    const newNote = new Note('');
+    if (this.state.noteCreationAllowed) {
+      const newNote = new Note('');
 
-    this.setState({
-      notes: this.state.notes.concat([newNote]),
-      selectedNoteIndex: this.state.notes.length,
-    });
-
-    this.focusTextEditorTextarea();
+      this.setState({
+        notes: this.state.notes.concat([newNote]),
+        selectedNoteIndex: this.state.notes.length,
+      });
+      this.setAllowNoteCreation(false);
+      this.focusTextEditorTextarea();
+    }
   };
 
   deleteNote = (noteIndex) => {
     const notes = [...this.state.notes];
+    if (notes[noteIndex] !== '') this.setAllowNoteCreation(true);
     notes.splice(noteIndex, 1);
     this.setState({
       notes,
       selectedNoteIndex: 0,
     });
   };
+
 
   handleNotesListClick = (noteIndex) => {
     this.setState({ selectedNoteIndex: noteIndex });
@@ -119,6 +131,7 @@ class App extends React.Component {
           <ActionBar
             onCreateNote={this.addEmptyNote}
             onDeleteNote={() => this.deleteNote(this.state.selectedNoteIndex)}
+            noteCreationAllowed={this.state.noteCreationAllowed}
           />
           <div className="row py-1 ">
             <div className="col-4">
@@ -133,6 +146,7 @@ class App extends React.Component {
                 note={this.state.notes[this.state.selectedNoteIndex].body}
                 onUpdateNote={this.handleTextEditorNoteUpdate}
                 ref={this.textEditorTextarea}
+                setAllowNoteCreation={this.setAllowNoteCreation}
               />
             </div>
           </div>
