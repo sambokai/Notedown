@@ -7,7 +7,7 @@ import { Droppable, Draggable } from 'react-beautiful-dnd';
 // eslint-disable-next-line react/prefer-stateless-function
 class NoteSelectionList extends React.Component {
   static getNoteTitle(noteBody) {
-    return noteBody.match(/\n*.*(\n|$)/)[0].trim();
+    return noteBody.match(/(\n|\s)*.*(\n|$)/)[0].trim();
   }
 
   handleNoteSelection(noteIndex) {
