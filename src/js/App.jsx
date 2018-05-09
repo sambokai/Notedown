@@ -28,6 +28,8 @@ class App extends React.Component {
       notes: [new Note('This is a note.'), new Note('This is a journal entry.')],
       selectedNote: 0,
     };
+
+    this.textEditorTextarea = React.createRef();
   }
 
   onDragEnd = (result) => {
@@ -58,10 +60,13 @@ class App extends React.Component {
 
   addEmptyNote = () => {
     const newNote = new Note('');
+
     this.setState({
       notes: this.state.notes.concat([newNote]),
       selectedNote: this.state.notes.length,
     });
+
+    this.focusTextEditorTextarea();
   };
 
   handleNotesListClick = (noteIndex) => {
@@ -78,6 +83,9 @@ class App extends React.Component {
     );
   }
 
+  focusTextEditorTextarea() {
+    this.textEditorTextarea.current.focus();
+  }
 
   render() {
     const components = {
@@ -98,6 +106,7 @@ class App extends React.Component {
               <TextEditor
                 note={this.state.notes[this.state.selectedNote].body}
                 onUpdateNote={this.handleTextEditorNoteUpdate}
+                ref={this.textEditorTextarea}
               />
             </div>
           </div>
