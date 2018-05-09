@@ -34,6 +34,12 @@ class App extends React.Component {
     this.focusTextEditorTextarea();
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.selectedNoteIndex !== this.state.selectedNoteIndex) {
+      this.noteSelectionChanged(prevState.selectedNoteIndex, this.state.selectedNoteIndex);
+    }
+  }
+
   onDragEnd = (result) => {
     // dropped outside the list
     if (!result.destination) {
@@ -60,6 +66,13 @@ class App extends React.Component {
     this.setState({ notes });
   };
 
+  noteSelectionChanged(oldNoteIndex, newNoteIndex) {
+    // Delete note if it is empty and user switches to another one
+    if (this.state.notes[oldNoteIndex] && !this.state.notes[oldNoteIndex].body) {
+      this.deleteNote(oldNoteIndex);
+    }
+  }
+
   addEmptyNote = () => {
     const newNote = new Note('');
 
@@ -69,6 +82,15 @@ class App extends React.Component {
     });
 
     this.focusTextEditorTextarea();
+  };
+
+  deleteNote = (noteIndex) => {
+    const notes = [...this.state.notes];
+    notes.splice(noteIndex, 1);
+    this.setState({
+      notes,
+      selectedNoteIndex: 0,
+    });
   };
 
   handleNotesListClick = (noteIndex) => {
