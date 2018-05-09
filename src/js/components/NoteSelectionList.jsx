@@ -6,8 +6,12 @@ import { Droppable, Draggable } from 'react-beautiful-dnd';
 
 // eslint-disable-next-line react/prefer-stateless-function
 class NoteSelectionList extends React.Component {
-  static getNoteTitle(noteBody) {
-    return noteBody.match(/(\n|\s)*.*(\n|$)/)[0].trim();
+  getNoteTitle(noteBody) {
+    if (noteBody) {
+      return noteBody.match(/(\n|\s)*.*(\n|$)/)[0].trim();
+    }
+
+    return this.props.emptyNoteTitle;
   }
 
   handleNoteSelection(noteIndex) {
@@ -28,11 +32,11 @@ class NoteSelectionList extends React.Component {
                       {...draggableProvided.draggableProps}
                       {...draggableProvided.dragHandleProps}
                       href="#"
-                      className={`d-inline-block justify-content-between align-items-center list-group-item list-group-item-action text-truncate ${(this.props.selectedNote === index) && !draggableSnapshot.isDragging ? 'active' : ''}`}
+                      className={`d-inline-block justify-content-between align-items-center list-group-item list-group-item-action text-truncate ${(this.props.selectedNote === index) && !draggableSnapshot.isDragging ? 'active' : ''} ${note.body ? '' : 'disabled font-weight-light bg-secondary text-white'}`}
                       onClick={() => this.handleNoteSelection(index)}
                       id="note-list-item"
                     >
-                      {NoteSelectionList.getNoteTitle(note.body)}
+                      {this.getNoteTitle(note.body)}
                     </a>)}
                 </Draggable>
               ))
@@ -49,6 +53,11 @@ NoteSelectionList.propTypes = {
   notes: PropTypes.arrayOf(PropTypes.object).isRequired,
   onSelectNote: PropTypes.func.isRequired,
   selectedNote: PropTypes.number.isRequired,
+  emptyNoteTitle: PropTypes.string,
+};
+
+NoteSelectionList.defaultProps = {
+  emptyNoteTitle: 'Empty',
 };
 
 
