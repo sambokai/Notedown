@@ -11,10 +11,22 @@ const increment = () => {
 
 class Note {
   constructor(body) {
+    this._body = body;
     // noinspection JSUnusedGlobalSymbols
-    this.body = body;
+    const currentDatetime = Date.now();
+    this.created = currentDatetime;
+    this.lastChange = currentDatetime;
     // noinspection JSUnusedGlobalSymbols
     this.id = increment();
+  }
+
+  get body() {
+    return this._body;
+  }
+
+  set body(text) {
+    this.lastChange = Date.now();
+    this._body = text;
   }
 }
 
