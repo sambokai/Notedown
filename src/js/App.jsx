@@ -82,7 +82,7 @@ class App extends React.Component {
 
   syncFromLocalStorage() {
     const noteCreationAllowed = Persistence.readFromLocalStorage('noteCreationAllowed');
-    if (typeof noteCreationAllowed !== 'undefined') this.setState({ noteCreationAllowed });
+    if (noteCreationAllowed !== null) this.setState({ noteCreationAllowed });
 
     const notes = Persistence.readFromLocalStorage('notes');
     if (notes) this.setState({ notes });
