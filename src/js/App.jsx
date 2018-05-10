@@ -3,6 +3,7 @@ import { render } from 'react-dom';
 
 import { DragDropContext } from 'react-beautiful-dnd';
 
+import Persistence from './model/Persistence';
 
 import Note from './model/Note';
 
@@ -23,12 +24,16 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      notes: [new Note('This is a note.'), new Note('This is a journal entry.')],
+      notes: [],
       selectedNoteIndex: 0,
       noteCreationAllowed: true,
     };
 
     this.textEditorTextarea = React.createRef();
+  }
+
+  componentWillMount() {
+    this.syncFromLocalStorage();
   }
 
   componentDidMount() {
@@ -39,6 +44,8 @@ class App extends React.Component {
     if (prevState.selectedNoteIndex !== this.state.selectedNoteIndex) {
       this.noteSelectionChanged(prevState.selectedNoteIndex, this.state.selectedNoteIndex);
     }
+
+    this.syncToLocalStorage(prevState);
   }
 
   onDragEnd = (result) => {
@@ -61,7 +68,6 @@ class App extends React.Component {
     });
   };
 
-
   setAllowNoteCreation = (bool) => {
     this.setState({ noteCreationAllowed: bool });
   };
@@ -72,6 +78,30 @@ class App extends React.Component {
     }
 
     return { body: '', id: -1 };
+  }
+
+  syncFromLocalStorage() {
+    const noteCreationAllowed = Persistence.readFromLocalStorage('noteCreationAllowed');
+    if (typeof noteCreationAllowed !== 'undefined') this.setState({ noteCreationAllowed });
+
+    const notes = Persistence.readFromLocalStorage('notes');
+    if (notes) this.setState({ notes });
+
+    const selectedNoteIndex = Persistence.readFromLocalStorage('selectedNoteIndex');
+    if (selectedNoteIndex) this.setState({ selectedNoteIndex });
+  }
+
+  syncToLocalStorage(prevState) {
+    if (prevState.noteCreationAllowed !== this.state.noteCreationAllowed) {
+      Persistence.writeToLocalStorage('noteCreationAllowed', this.state.noteCreationAllowed);
+    }
+    if (prevState.notes !== this.state.notes) {
+      Persistence.writeToLocalStorage('notes', this.state.notes);
+    }
+
+    if (prevState.selectedNoteIndex !== this.state.selectedNoteIndex) {
+      Persistence.writeToLocalStorage('selectedNoteIndex', this.state.selectedNoteIndex);
+    }
   }
 
   // eslint-disable-next-line no-unused-vars

@@ -1,7 +1,11 @@
-let noteIdCounter = 0;
+import Persistence from './Persistence';
+
+const localNoteIdCounter = Persistence.readFromLocalStorage('noteIdCounter');
+let noteIdCounter = localNoteIdCounter || 0;
 
 const increment = () => {
   noteIdCounter += 1;
+  Persistence.writeToLocalStorage('noteIdCounter', noteIdCounter);
   return noteIdCounter;
 };
 
