@@ -47,7 +47,7 @@ class App extends React.Component {
       return;
     }
 
-    const selectedNoteId = this.state.notes[this.state.selectedNoteIndex].id;
+    const selectedNoteId = this.getNoteByIndex(this.state.selectedNoteIndex).id;
 
     const notes = App.reorder(
       this.state.notes,
@@ -66,18 +66,18 @@ class App extends React.Component {
     this.setState({ noteCreationAllowed: bool });
   };
 
-  handleTextEditorNoteUpdate = (newText) => {
-    if (newText === '') { this.setAllowNoteCreation(false); } else this.setAllowNoteCreation(true);
+  getNoteByIndex(index) {
+    if (typeof this.state.notes[index] !== 'undefined') {
+      return this.state.notes[index];
+    }
 
-    const notes = this.state.notes.slice();
-    notes[this.state.selectedNoteIndex].body = newText;
-    this.setState({ notes });
-  };
+    return { body: '', id: -1 };
+  }
 
   // eslint-disable-next-line no-unused-vars
   noteSelectionChanged(oldNoteIndex) {
     // Delete note if it is empty and user switches to another one
-    if (this.state.notes[oldNoteIndex] && !this.state.notes[oldNoteIndex].body) {
+    if (this.getNoteByIndex(oldNoteIndex) && !this.getNoteByIndex(oldNoteIndex).body) {
       this.deleteNote(oldNoteIndex);
     }
   }
@@ -97,12 +97,21 @@ class App extends React.Component {
 
   deleteNote = (noteIndex) => {
     const notes = [...this.state.notes];
-    if (notes[noteIndex] !== '') this.setAllowNoteCreation(true);
+    if (this.getNoteByIndex(noteIndex) !== '') this.setAllowNoteCreation(true);
     notes.splice(noteIndex, 1);
     this.setState({
       notes,
       selectedNoteIndex: 0,
     });
+  };
+
+
+  handleTextEditorNoteUpdate = (newText) => {
+    if (newText === '') { this.setAllowNoteCreation(false); } else this.setAllowNoteCreation(true);
+
+    const notes = this.state.notes.slice();
+    this.getNoteByIndex(this.state.selectedNoteIndex).body = newText;
+    this.setState({ notes });
   };
 
 
@@ -143,7 +152,7 @@ class App extends React.Component {
             </div>
             <div className="col-8 ">
               <TextEditor
-                note={this.state.notes[this.state.selectedNoteIndex].body}
+                note={this.getNoteByIndex(this.state.selectedNoteIndex)}
                 onUpdateNote={this.handleTextEditorNoteUpdate}
                 ref={this.textEditorTextarea}
                 setAllowNoteCreation={this.setAllowNoteCreation}
