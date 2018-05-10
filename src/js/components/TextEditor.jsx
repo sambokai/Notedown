@@ -17,9 +17,9 @@ class TextEditor extends React.Component {
         rows={15}
         style={textAreaStyle}
         placeholder={
-          (this.props.note.id === -1) ? this.props.noNotesMessage : this.props.placeholder
+          (this.props.note.id) ? this.props.noNotesMessage : this.props.placeholder
         }
-        disabled={(this.props.note.id === -1)}
+        disabled={(this.props.note.id === null)}
         value={this.props.note.body}
         onChange={this.handleChange}
         ref={this.props.textAreaRef}

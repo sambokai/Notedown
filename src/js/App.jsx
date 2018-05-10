@@ -77,7 +77,7 @@ class App extends React.Component {
       return this.state.notes[index];
     }
 
-    return { body: '', id: -1 };
+    return { body: '', id: null };
   }
 
   syncFromLocalStorage() {
