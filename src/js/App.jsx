@@ -114,10 +114,8 @@ class App extends React.Component {
 
   addEmptyNote = () => {
     if (this.state.noteCreationAllowed) {
-      const newNote = new Note('');
-
       this.setState({
-        notes: this.state.notes.concat([newNote]),
+        notes: this.state.notes.concat([new Note('')]),
         selectedNoteIndex: this.state.notes.length,
       });
       this.setAllowNoteCreation(false);
