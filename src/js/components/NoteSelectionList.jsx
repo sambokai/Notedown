@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import TimeAgo from 'timeago-react';
 
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 
@@ -32,11 +33,16 @@ class NoteSelectionList extends React.Component {
                       {...draggableProvided.draggableProps}
                       {...draggableProvided.dragHandleProps}
                       href="#"
-                      className={`d-inline-block justify-content-between align-items-center list-group-item list-group-item-action text-truncate ${(this.props.selectedNote === index) && !draggableSnapshot.isDragging ? 'active' : ''} ${note.body ? '' : 'disabled font-weight-light bg-secondary text-white'}`}
+                      className={`flex-column align-items-center list-group-item list-group-item-action px-2 ${(this.props.selectedNote === index) && !draggableSnapshot.isDragging ? 'active' : ''} ${note.body ? '' : 'disabled font-weight-light bg-secondary text-white'}`}
                       onClick={() => this.handleNoteSelection(index)}
                       id="note-list-item"
                     >
-                      {this.getNoteTitle(note.body)}
+                      <div className="d-flex w-100 align-items-center justify-content-between">
+                        <p id="note-list-item-title" className="text-truncate pr-2 mb-0">{this.getNoteTitle(note.body)}</p>
+                        <small id="note-list-item-lastChangeDate d-flex justify-content-end">
+                          <TimeAgo className="w-100" datetime={note.lastChange} />
+                        </small>
+                      </div>
                     </a>)}
                 </Draggable>
               ))

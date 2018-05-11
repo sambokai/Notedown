@@ -85,7 +85,10 @@ class App extends React.Component {
     if (noteCreationAllowed !== null) this.setState({ noteCreationAllowed });
 
     const notes = Persistence.readFromLocalStorage('notes');
-    if (notes) this.setState({ notes });
+    if (notes) {
+      const instantiatedNotes = notes.map(note => Note.fromObject(note));
+      this.setState({ notes: instantiatedNotes });
+    }
 
     const selectedNoteIndex = Persistence.readFromLocalStorage('selectedNoteIndex');
     if (selectedNoteIndex) this.setState({ selectedNoteIndex });
@@ -98,7 +101,6 @@ class App extends React.Component {
     if (prevState.notes !== this.state.notes) {
       Persistence.writeToLocalStorage('notes', this.state.notes);
     }
-
     if (prevState.selectedNoteIndex !== this.state.selectedNoteIndex) {
       Persistence.writeToLocalStorage('selectedNoteIndex', this.state.selectedNoteIndex);
     }
@@ -137,8 +139,8 @@ class App extends React.Component {
   handleTextEditorNoteUpdate = (newText) => {
     if (newText === '') { this.setAllowNoteCreation(false); } else this.setAllowNoteCreation(true);
 
-    const notes = this.state.notes.slice();
-    this.getNoteByIndex(this.state.selectedNoteIndex).body = newText;
+    const notes = [...this.state.notes];
+    notes[this.state.selectedNoteIndex].body = newText;
     this.setState({ notes });
   };
 

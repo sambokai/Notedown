@@ -10,14 +10,29 @@ const increment = () => {
 };
 
 class Note {
-  constructor(body) {
+  /**
+   * Instantiates a Note from a 'dumb' JS object.
+   * @param object Javascript object with a shape that
+   * mirrors the signature of the Note class.
+   * @returns {Note}
+   */
+  static fromObject(object) {
+    const note = new Note(
+      object._body,
+      object.id,
+      object.createdOn,
+    );
+    note.lastChange = object.lastChange;
+    return note;
+  }
+
+  constructor(body, id = increment(), createdOn = Date.now()) {
     this._body = body;
     // noinspection JSUnusedGlobalSymbols
-    const currentDatetime = Date.now();
-    this.created = currentDatetime;
-    this.lastChange = currentDatetime;
+    this.createdOn = createdOn;
+    this.lastChange = this.createdOn.valueOf();
     // noinspection JSUnusedGlobalSymbols
-    this.id = increment();
+    this.id = id;
   }
 
   get body() {

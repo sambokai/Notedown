@@ -1,3 +1,11 @@
 #note-list-item:empty:before {
     content: "\00a0";
 }
+
+#note-list-item-title {
+    width: 70%;
+}
+
+#note-list-item-lastChangeDate {
+    width: 30%;
+}
