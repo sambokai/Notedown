@@ -45,11 +45,10 @@ class NoteSelectionList extends React.Component {
                       href="#"
                       className={`flex-column align-items-center list-group-item list-group-item-action px-2 ${(this.props.selectedNote === index) && !draggableSnapshot.isDragging ? 'active' : ''} ${note.body ? '' : 'disabled font-weight-light bg-secondary text-white'}`}
                       onClick={() => this.handleNoteSelection(index)}
-                      id="note-list-item"
                     >
                       <div className="d-flex w-100 align-items-center justify-content-between">
                         <p id="note-list-item-title" className="text-truncate pr-2 mb-0">{this.getNoteTitle(note.body)}</p>
-                        <small id="note-list-item-lastChangeDate d-flex justify-content-end">
+                        <small >
                           {NoteSelectionList.getRelativeCalendarDate(note.lastChange)}
                         </small>
                       </div>
