@@ -4,11 +4,11 @@
   "description": "A basic learning project using React without Redux.",
   "author": "Sam Bokai",
   "dependencies": {
+    "moment": "^2.22.1",
     "prop-types": "^15.6.1",
     "react": "^16.3.2",
     "react-beautiful-dnd": "^7.1.2",
-    "react-dom": "^16.3.2",
-    "timeago-react": "^2.0.0"
+    "react-dom": "^16.3.2"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",

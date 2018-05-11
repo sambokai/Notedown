@@ -1,12 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import TimeAgo from 'timeago-react';
+
+import Moment from 'moment';
 
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 
 
-// eslint-disable-next-line react/prefer-stateless-function
 class NoteSelectionList extends React.Component {
+  static relativeCalendarFormat = {
+    sameDay: '[Today]',
+    lastDay: '[Yesterday]',
+    sameElse: 'DD.MM.YY',
+  };
+
+  static getRelativeCalendarDate(date) {
+    return Moment(date).calendar(null, this.relativeCalendarFormat);
+  }
+
   getNoteTitle(noteBody) {
     if (noteBody) {
       return noteBody.match(/(\n|\s)*.*(\n|$)/)[0].trim();
@@ -40,7 +50,7 @@ class NoteSelectionList extends React.Component {
                       <div className="d-flex w-100 align-items-center justify-content-between">
                         <p id="note-list-item-title" className="text-truncate pr-2 mb-0">{this.getNoteTitle(note.body)}</p>
                         <small id="note-list-item-lastChangeDate d-flex justify-content-end">
-                          <TimeAgo className="w-100" datetime={note.lastChange} />
+                          {NoteSelectionList.getRelativeCalendarDate(note.lastChange)}
                         </small>
                       </div>
                     </a>)}
