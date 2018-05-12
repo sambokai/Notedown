@@ -135,7 +135,6 @@ class App extends React.Component {
     notes.splice(noteIndex, 1);
     this.setState({
       notes,
-      selectedNoteIndex: 0,
     });
   };
 
