@@ -8,7 +8,7 @@ import { Droppable, Draggable } from 'react-beautiful-dnd';
 
 class NoteSelectionList extends React.Component {
   static relativeCalendarFormat = {
-    sameDay: '[Today]',
+    sameDay: 'HH:mm',
     lastDay: '[Yesterday]',
     sameElse: 'DD.MM.YY',
   };
