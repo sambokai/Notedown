@@ -13,7 +13,7 @@ class TextEditor extends React.Component {
 
     return (
       <textarea
-        className="w-100"
+        className="w-100 mousetrap"
         rows={15}
         style={textAreaStyle}
         placeholder={
