@@ -5,6 +5,7 @@ import Moment from 'moment';
 
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 
+import NotesListFilterSearch from './NotesListFilterSearch';
 
 class NoteSelectionList extends React.Component {
   static relativeCalendarFormat = {
@@ -15,6 +16,14 @@ class NoteSelectionList extends React.Component {
 
   static getRelativeCalendarDate(date) {
     return Moment(date).calendar(null, this.relativeCalendarFormat);
+  }
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      searchQuery: '',
+    };
   }
 
   getNoteTitle(noteBody) {
@@ -28,37 +37,48 @@ class NoteSelectionList extends React.Component {
   handleNoteSelection(noteIndex) {
     this.props.onSelectNote(noteIndex);
   }
+
+  handleSearchQueryUpdate = (searchQuery) => {
+    this.setState({ searchQuery: searchQuery.trim() });
+  };
+
   render() {
+    const filteredNotes = this.props.notes
+      .filter(note => note.body.toLowerCase().includes(this.state.searchQuery.toLowerCase()));
+
     return (
-      <Droppable droppableId="notesListDroppable">
-        {droppableProvided => (
-          <div className="list-group" ref={droppableProvided.innerRef}>
-            {/* eslint-disable jsx-a11y/anchor-is-valid */}
-            {this.props.notes.map((note, index) =>
-              (
-                <Draggable draggableId={note.id} key={note.id} index={index}>
-                  {(draggableProvided, draggableSnapshot) => (
-                    <a
-                      ref={draggableProvided.innerRef}
-                      {...draggableProvided.draggableProps}
-                      {...draggableProvided.dragHandleProps}
-                      href="#"
-                      className={`flex-column align-items-center list-group-item list-group-item-action px-2 ${(this.props.selectedNote === index) && !draggableSnapshot.isDragging ? 'active' : ''} ${note.body ? '' : 'disabled font-weight-light bg-secondary text-white'}`}
-                      onClick={() => this.handleNoteSelection(index)}
-                    >
-                      <div className="d-flex w-100 align-items-center justify-content-between">
-                        <p id="note-list-item-title" className="text-truncate pr-2 mb-0">{this.getNoteTitle(note.body)}</p>
-                        <small >
-                          {NoteSelectionList.getRelativeCalendarDate(note.lastChange)}
-                        </small>
-                      </div>
-                    </a>)}
-                </Draggable>
-              ))
-            }
-            {droppableProvided.placeholder}
-          </div>)}
-      </Droppable>
+      <div>
+        <NotesListFilterSearch onUpdateSearchQuery={this.handleSearchQueryUpdate} />
+        <Droppable droppableId="notesListDroppable">
+          {droppableProvided => (
+            <div className="list-group" ref={droppableProvided.innerRef}>
+              {/* eslint-disable jsx-a11y/anchor-is-valid */}
+              {filteredNotes.map((note, index) =>
+                (
+                  <Draggable draggableId={note.id} key={note.id} index={index}>
+                    {(draggableProvided, draggableSnapshot) => (
+                      <a
+                        ref={draggableProvided.innerRef}
+                        {...draggableProvided.draggableProps}
+                        {...draggableProvided.dragHandleProps}
+                        href="#"
+                        className={`flex-column align-items-center list-group-item list-group-item-action px-2 ${(this.props.selectedNote === index) && !draggableSnapshot.isDragging ? 'active' : ''} ${note.body ? '' : 'disabled font-weight-light bg-secondary text-white'}`}
+                        onClick={() => this.handleNoteSelection(index)}
+                      >
+                        <div className="d-flex w-100 align-items-center justify-content-between">
+                          <p id="note-list-item-title" className="text-truncate pr-2 mb-0">{this.getNoteTitle(note.body)}</p>
+                          <small >
+                            {NoteSelectionList.getRelativeCalendarDate(note.lastChange)}
+                          </small>
+                        </div>
+                      </a>)}
+                  </Draggable>
+                ))
+              }
+              {droppableProvided.placeholder}
+            </div>)}
+        </Droppable>
+      </div>
     );
   }
 }
