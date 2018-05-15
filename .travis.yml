@@ -12,6 +12,7 @@ deploy:
     secure: Dg2Ha97XcFg/JdnNPfH+ySoSlVkwh2gZsw7/Xlh4dxKyTdyhK0+jOWc8ZVh1lVJzE/hMjTSUcH43lp5WXVMlYy2tDYWfoZIZKoamrAAJQ6/4aIBVlT3zYqold1DRWayhLsOEGgxYUb+cS1OIJh5Zn47I53tH4AZduUsvgF1gzJM632qkgGdXNiqIpcEnzSt5//v0YwK1ds5R87tQTh7hnxck8yUgAYfJCOHDt5/2kdrOcCII0Ouu0LO/eeLVH0segV+RkpDGJsng9yavDPoLqmsQESP9XjvbhB5zCc0pEU0H6fCwnTQXCw0Z7xKves3ffH0yXA03IBtxccLPFh0yCXFxPJr8e668euQerX8PYdUCGJNXV1l43MalBU+yI+ZtCwSy4Gw65s8bX85t5nqvI0W1oDuSA3xwgY1WNVxEaTIO0zAaBw7x8AOsqESiRhLMYUT1fB4pDjTthRmEmGH5luWUAp96iiJ7XNSO832zLdhM6sUDWGiE7ahGS7GWs7mVqBjX3eW6hSjUWYQoiV7kL+SK/miDEG/DtdSBDxzdp53ljtIM3xg6qgx4/i5TC5LYQ9nO/vbhkaOIFKDk1YMo5xwcND2Ro5MCkF+h9l0sJdsXmrfCX3rqT9aH3nddI6psTrX3hDS6PQ0yDdfjuBovq8DKrSw+/4KOXOlno6fXV8E=
   bucket: notedown-react
   local-dir: dist
+  skip_cleanup: true
   upload-dir: static
   on:
     repo: sambokai/Notedown
