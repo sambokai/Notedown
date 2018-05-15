@@ -1,4 +1,4 @@
-# Notedown
+# Notedown [![Build Status](https://travis-ci.com/sambokai/Notedown.svg?token=B3c5dqi77zsc6HReanrw&branch=master)](https://travis-ci.com/sambokai/Notedown)
 ###### Learning Project
 
 
