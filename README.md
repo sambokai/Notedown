@@ -1,6 +1,8 @@
 # Notedown [![Build Status](https://travis-ci.com/sambokai/Notedown.svg?token=B3c5dqi77zsc6HReanrw&branch=master)](https://travis-ci.com/sambokai/Notedown)
 ###### Learning Project
 
+[Live Demo](http://notedown.sambokai.com)
+
 
 ## *Y U No Redux??!1*
 I have decided against using an external state management solution to become more comfortable with React itself. 
