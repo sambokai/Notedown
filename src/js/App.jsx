@@ -175,15 +175,15 @@ class App extends React.Component {
             onDeleteNote={() => this.deleteNote(this.state.selectedNoteIndex)}
             noteCreationAllowed={this.state.noteCreationAllowed}
           />
-          <div className="row py-1 ">
-            <div className="col-4">
+          <div className="row py-1 no-gutters">
+            <div className="col-4 pr-2">
               <NoteSelectionList
                 notes={this.state.notes}
                 onSelectNote={this.handleNotesListClick}
                 selectedNote={this.state.selectedNoteIndex}
               />
             </div>
-            <div className="col-8 ">
+            <div className="col-8 pl-1">
               <TextEditor
                 note={this.getNoteByIndex(this.state.selectedNoteIndex)}
                 onUpdateNote={this.handleTextEditorNoteUpdate}
