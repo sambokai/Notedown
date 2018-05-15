@@ -1,7 +1,7 @@
 {
-  "name": "Basic-ToDo",
+  "name": "Notedown",
   "version": "1.0.0",
-  "description": "A basic learning project using React without Redux.",
+  "description": "A learning project using React without Redux.",
   "author": "Sam Bokai",
   "dependencies": {
     "moment": "^2.22.1",
