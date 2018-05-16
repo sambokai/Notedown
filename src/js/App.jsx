@@ -28,10 +28,13 @@ class App extends React.Component {
       notes: [],
       selectedNoteIndex: 0,
       noteCreationAllowed: true,
+      noNoteSelectedMessage: 'Please select a note to display it.',
+      noExistingNotesMessage: "Create a new note by clicking the 'New Note' Button",
     };
 
     // Keyboard Shortcuts
     Mousetrap.bind('ctrl+n', this.addEmptyNote);
+    Mousetrap.bind('ctrl+d', () => this.deleteNote(this.state.selectedNoteIndex));
 
     this.textEditorTextarea = React.createRef();
   }
@@ -189,6 +192,11 @@ class App extends React.Component {
                 onUpdateNote={this.handleTextEditorNoteUpdate}
                 ref={this.textEditorTextarea}
                 setAllowNoteCreation={this.setAllowNoteCreation}
+                noNoteMessage={
+                  this.state.notes.length
+                    ? this.state.noNoteSelectedMessage
+                    : this.state.noExistingNotesMessage
+                }
               />
             </div>
           </div>

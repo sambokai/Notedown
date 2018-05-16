@@ -17,7 +17,7 @@ class TextEditor extends React.Component {
         rows={15}
         style={textAreaStyle}
         placeholder={
-          (this.props.note.id) ? this.props.placeholder : this.props.noNotesMessage
+          (this.props.note.id) ? this.props.placeholder : this.props.noNoteMessage
         }
         disabled={(this.props.note.id === null)}
         value={this.props.note.body}
@@ -30,7 +30,7 @@ class TextEditor extends React.Component {
 
 TextEditor.propTypes = {
   placeholder: PropTypes.string,
-  noNotesMessage: PropTypes.string,
+  noNoteMessage: PropTypes.string,
   note: PropTypes.shape({
     body: PropTypes.string,
     id: PropTypes.number,
@@ -42,7 +42,7 @@ TextEditor.propTypes = {
 
 TextEditor.defaultProps = {
   placeholder: 'Write your notes in here...',
-  noNotesMessage: "Create a new note by clicking the 'New Note' Button",
+  noNoteMessage: 'No note selected',
 };
 
 export default React.forwardRef((props, ref) =>
