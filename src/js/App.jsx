@@ -8,9 +8,9 @@ import Persistence from './model/Persistence';
 
 import Note from './model/Note';
 
-import TextEditor from './components/TextEditor';
-import NoteSelectionList from './components/NoteSelectionList';
-import ActionBar from './components/ActionBar';
+import TextEditor from './components/texteditor/TextEditor';
+import NoteSelectionList from './components/noteslist/NoteSelectionList';
+import ActionBar from './components/actionbar/ActionBar';
 
 class App extends React.Component {
   static reorder(list, startIndex, endIndex) {
