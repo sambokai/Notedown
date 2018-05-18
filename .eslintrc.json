@@ -9,6 +9,7 @@
   "plugins": ["jest"],
   "rules": {
     "no-underscore-dangle": "off",
-    "max-len": ["warn", {"code": 125, "comments": 140}]
+    "max-len": ["warn", {"code": 125, "comments": 140}],
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/jest.setup.js", "**/*.test.jsx"]}]
   }
 }
