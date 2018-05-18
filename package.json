@@ -41,5 +41,7 @@
     "test:watch": "jest --watchAll",
     "build": "webpack",
     "dev": "webpack-dev-server"
-  }
+  },
+
+  "jest": { "setupTestFrameworkScriptFile": "./src/jest.setup.js" }
 }
