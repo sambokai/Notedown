@@ -9,8 +9,8 @@ import Persistence from './model/Persistence';
 import Note from './model/Note';
 
 import TextEditor from './components/texteditor/TextEditor';
-import NoteSelectionList from './components/noteslist/NoteSelectionList';
 import ActionBar from './components/actionbar/ActionBar';
+import NoteSelector from './components/noteselector/NoteSelector';
 
 class App extends React.Component {
   static reorder(list, startIndex, endIndex) {
@@ -87,6 +87,10 @@ class App extends React.Component {
     return { body: '', id: null };
   }
 
+  getNoteIndexById(noteId) {
+    return this.state.notes.findIndex(note => note.id === noteId);
+  }
+
   syncFromLocalStorage() {
     const noteCreationAllowed = Persistence.readFromLocalStorage('noteCreationAllowed');
     if (noteCreationAllowed !== null) this.setState({ noteCreationAllowed });
@@ -151,8 +155,8 @@ class App extends React.Component {
   };
 
 
-  handleNotesListClick = (noteIndex) => {
-    this.setState({ selectedNoteIndex: noteIndex });
+  handleNotesListClick = (noteId) => {
+    this.setState({ selectedNoteIndex: this.getNoteIndexById(noteId) });
   };
 
   dragDropContext(content) {
@@ -180,7 +184,7 @@ class App extends React.Component {
           />
           <div className="row py-1 no-gutters">
             <div className="col-4 pr-2">
-              <NoteSelectionList
+              <NoteSelector
                 notes={this.state.notes}
                 onSelectNote={this.handleNotesListClick}
                 selectedNote={this.state.selectedNoteIndex}
