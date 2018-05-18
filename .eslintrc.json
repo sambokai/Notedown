@@ -8,6 +8,7 @@
   },
   "plugins": ["jest"],
   "rules": {
-    "no-underscore-dangle": 0
+    "no-underscore-dangle": "off",
+    "max-len": ["warn", {"code": 125, "comments": 140}]
   }
 }
