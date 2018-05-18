@@ -35,7 +35,10 @@ class NoteSelector extends React.Component {
 NoteSelector.propTypes = {
   notes: PropTypes.arrayOf(PropTypes.object).isRequired,
   onSelectNote: PropTypes.func.isRequired,
-  selectedNote: PropTypes.number.isRequired,
+  selectedNote: PropTypes.shape({
+    body: PropTypes.string,
+    id: PropTypes.number,
+  }).isRequired,
 };
 
 export default NoteSelector;

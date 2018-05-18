@@ -6,10 +6,15 @@ class TextEditor extends React.Component {
     this.props.onUpdateNote(e.target.value);
   };
 
+  emptyNotePassed() {
+    return Object.keys(this.props.note).length === 0;
+  }
+
   render() {
     const textAreaStyle = {
       resize: 'none',
     };
+
 
     return (
       <textarea
@@ -19,8 +24,8 @@ class TextEditor extends React.Component {
         placeholder={
           (this.props.note.id) ? this.props.placeholder : this.props.noNoteMessage
         }
-        disabled={(this.props.note.id === null)}
-        value={this.props.note.body}
+        disabled={this.emptyNotePassed()}
+        value={this.emptyNotePassed() ? '' : this.props.note.body}
         onChange={this.handleChange}
         ref={this.props.textAreaRef}
       />

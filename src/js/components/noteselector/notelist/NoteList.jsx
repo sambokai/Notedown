@@ -19,7 +19,7 @@ class NoteList extends React.Component {
                 key={note.id}
                 listIndex={index}
                 onSelectNote={this.props.onSelectNote}
-                isSelected={this.props.selectedNote === index} // FIXME: this is wrong, because the array index of filteredNotes does not always match the this.props.selectedNote, which works with the non-filtered array of notes
+                isSelected={note === this.props.selectedNote}
               />))}
             {droppableProvided.placeholder}
           </div>)}
@@ -32,7 +32,10 @@ NoteList.propTypes = {
 // eslint-disable-next-line react/forbid-prop-types
   notes: PropTypes.arrayOf(PropTypes.object).isRequired,
   onSelectNote: PropTypes.func.isRequired,
-  selectedNote: PropTypes.number.isRequired,
+  selectedNote: PropTypes.shape({
+    body: PropTypes.string,
+    id: PropTypes.number,
+  }).isRequired,
   searchQuery: PropTypes.string.isRequired,
 };
 
