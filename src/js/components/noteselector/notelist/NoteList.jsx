@@ -5,15 +5,16 @@ import { Droppable } from 'react-beautiful-dnd';
 import NoteListItem from './noteslistitem/NoteListItem';
 
 class NoteList extends React.Component {
-  render() {
-    const filteredNotes = this.props.notes
-      .filter(note => note.body.toLowerCase().includes(this.props.searchQuery.toLowerCase()));
+  filteredNotes() {
+    return this.props.notes.filter(note => note.body.toLowerCase().includes(this.props.searchQuery.toLowerCase()));
+  }
 
+  render() {
     return (
       <Droppable droppableId="notesListDroppable">
         {droppableProvided => (
           <div className="list-group" ref={droppableProvided.innerRef}>
-            {filteredNotes.map((note, index) =>
+            {this.filteredNotes().map((note, index) =>
               (<NoteListItem
                 note={note}
                 key={note.id}
