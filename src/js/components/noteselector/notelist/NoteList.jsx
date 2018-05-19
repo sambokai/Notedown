@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Droppable } from 'react-beautiful-dnd';
+import { Draggable, Droppable } from 'react-beautiful-dnd';
 import NoteListItem from './noteslistitem/NoteListItem';
 
 class NoteList extends React.Component {
@@ -15,13 +15,24 @@ class NoteList extends React.Component {
         {droppableProvided => (
           <div className="list-group" ref={droppableProvided.innerRef}>
             {this.filteredNotes().map((note, index) =>
-              (<NoteListItem
-                note={note}
-                key={note.id}
-                listIndex={index}
-                onSelectNote={this.props.onSelectNote}
-                isSelected={note === this.props.selectedNote}
-              />))}
+              (
+                <Draggable
+                  draggableId={note.id}
+                  index={index}
+                  key={note.id}
+                >
+                  {(draggableProvided, draggableSnapshot) => (
+                    <NoteListItem
+                      draggableProvided={draggableProvided}
+                      note={note}
+                      key={note.id}
+                      onSelectNote={this.props.onSelectNote}
+                      isSelected={note === this.props.selectedNote}
+                      isDragging={draggableSnapshot.isDragging}
+                    />
+                  )}
+                </Draggable>
+              ))}
             {droppableProvided.placeholder}
           </div>)}
       </Droppable>
