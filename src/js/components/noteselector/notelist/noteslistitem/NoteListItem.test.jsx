@@ -108,9 +108,17 @@ describe('getRelativeCalendarDate(date)', () => {
 
   it('returns exact date, if the provided date was more than 24 hours ago', () => {
     const lastChange = new Date(lockedTime);
-    lastChange.setHours(lastChange.getHours() - (24 * 7));
+    lastChange.setHours(lastChange.getHours() - (24 * 90));
 
     const relativeDate = NoteListItem.getRelativeCalendarDate(lastChange);
-    expect(relativeDate).toBe('08.07.10');
+    expect(relativeDate).toBe('16.04.10');
+  });
+
+  it('returns exact date, if the provided date was more than 24 hours, but less than a week ago', () => {
+    const lastChange = new Date(lockedTime);
+    lastChange.setHours(lastChange.getHours() - (24 * 5));
+
+    const relativeDate = NoteListItem.getRelativeCalendarDate(lastChange);
+    expect(relativeDate).toBe('10.07.10');
   });
 });

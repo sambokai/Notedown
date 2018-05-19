@@ -8,6 +8,7 @@ class NoteListItem extends React.Component {
     sameDay: 'HH:mm',
     lastDay: '[Yesterday]',
     sameElse: 'DD.MM.YY',
+    lastWeek: 'DD.MM.YY',
   };
 
   static getRelativeCalendarDate(date) {
