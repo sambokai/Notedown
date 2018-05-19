@@ -46,6 +46,7 @@
     "setupTestFrameworkScriptFile": "./src/jest.setup.js",
     "collectCoverage": true,
     "coverageDirectory": "coverage",
-    "collectCoverageFrom": ["src/**/*.{js,jsx}", "!**/node_modules/**", "!**/vendor/**", "!**/jest.setup.js"]
+    "collectCoverageFrom": ["src/**/*.{js,jsx}", "!**/node_modules/**", "!**/vendor/**", "!**/jest.setup.js"],
+    "clearMocks": true
   }
 }

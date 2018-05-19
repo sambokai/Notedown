@@ -21,10 +21,6 @@ afterAll(() => {
   dateNowSpy.mockRestore();
 });
 
-afterEach(() => {
-  jest.clearAllMocks();
-});
-
 const onSelectNoteMock = jest.fn();
 onSelectNoteMock.mockReturnValue('This Note was selected');
 
