@@ -21,17 +21,20 @@ const mockData = {
   onSelectNote: onSelectNoteMock
 };
 
+const mockSelectedNoteListItem = (
+  <NoteListItem
+    note={mockData.note}
+    onSelectNote={mockData.onSelectNote}
+    isSelected
+    draggableProvided={mockData.draggableProvided}
+  />
+);
 
 it('renders correctly', () => {
   const wrapper = renderer
     .create(
       <DragDropContext>
-        <NoteListItem
-          note={mockData.note}
-          onSelectNote={mockData.onSelectNote}
-          isSelected
-          draggableProvided={mockData.draggableProvided}
-        />
+        {mockSelectedNoteListItem}
       </DragDropContext>
     );
 
