@@ -45,16 +45,18 @@ const mockSelectedNoteListItem = (
   />
 );
 
-it('renders correctly', () => {
-  const wrapper = renderer
-    .create(
-      <DragDropContext>
-        {mockSelectedNoteListItem}
-      </DragDropContext>
-    );
+describe('<NoteListItem/>', () => {
+  it('renders correctly', () => {
+    const wrapper = renderer
+      .create(
+        <DragDropContext>
+          {mockSelectedNoteListItem}
+        </DragDropContext>
+      );
 
-  expect(wrapper)
-    .toMatchSnapshot();
+    expect(wrapper)
+      .toMatchSnapshot();
+  });
 });
 
 describe('getNoteTitle()', () => {
