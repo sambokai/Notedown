@@ -11,12 +11,14 @@ class ActionBar extends React.Component {
         <a className="navbar-brand" href="/">Notedown</a>
         <form className="form-inline">
           <button
+            id="new-note-button"
             onClick={this.props.onCreateNote}
             type="button"
             className={`btn btn-primary ml-2 ${this.props.noteCreationAllowed ? '' : 'disabled'}`}
           >New Note
           </button>
           <button
+            id="delete-note-button"
             onClick={this.props.onDeleteNote}
             type="button"
             className="btn btn-danger ml-2"
