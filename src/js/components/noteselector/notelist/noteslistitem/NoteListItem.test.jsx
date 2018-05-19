@@ -5,8 +5,6 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import renderer from 'react-test-renderer';
 
-import { DragDropContext } from 'react-beautiful-dnd';
-
 import NoteListItem from './NoteListItem';
 
 let dateNowSpy;
@@ -21,6 +19,10 @@ afterAll(() => {
   // Unlock Time
   dateNowSpy.mockReset();
   dateNowSpy.mockRestore();
+});
+
+afterEach(() => {
+  jest.clearAllMocks();
 });
 
 const onSelectNoteMock = jest.fn();
