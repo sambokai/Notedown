@@ -63,12 +63,13 @@ NoteListItem.propTypes = {
     innerRef: PropTypes.func,
     draggableProps: PropTypes.object,
     dragHandleProps: PropTypes.object,
-  }).isRequired,
+  }),
 };
 
 
 NoteListItem.defaultProps = {
   emptyNoteTitle: 'Empty',
+  draggableProvided: {},
 };
 
 export default NoteListItem;
