@@ -48,6 +48,18 @@ describe('<NoteListItem/>', () => {
     expect(wrapper)
       .toMatchSnapshot();
   });
+
+  it('renders correctly if the item is NOT selected', () => {
+    const wrapper = renderer
+      .create(
+        <DragDropContext>
+          <NoteListItem {...mockProps} isSelected={false} />
+        </DragDropContext>
+      );
+
+    expect(wrapper)
+      .toMatchSnapshot();
+  });
 });
 
 describe('getNoteTitle()', () => {
