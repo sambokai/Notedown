@@ -26,7 +26,7 @@ afterAll(() => {
 const onSelectNoteMock = jest.fn();
 onSelectNoteMock.mockReturnValue('This Note was selected');
 
-const mockData = {
+const mockProps = {
   note: {
     body: 'This is Note #1',
     id: 1,
@@ -36,21 +36,12 @@ const mockData = {
   onSelectNote: onSelectNoteMock
 };
 
-const mockSelectedNoteListItem = (
-  <NoteListItem
-    note={mockData.note}
-    onSelectNote={mockData.onSelectNote}
-    isSelected
-    draggableProvided={mockData.draggableProvided}
-  />
-);
-
 describe('<NoteListItem/>', () => {
-  it('renders correctly', () => {
+  it('renders correctly if the item is selected', () => {
     const wrapper = renderer
       .create(
         <DragDropContext>
-          {mockSelectedNoteListItem}
+          <NoteListItem {...mockProps} isSelected />
         </DragDropContext>
       );
 
@@ -62,12 +53,12 @@ describe('<NoteListItem/>', () => {
 describe('getNoteTitle()', () => {
   it("returns the first line of text in a note's body as a trimmed string", () => {
     const testNote = {
-      ...mockData.note,
+      ...mockProps.note,
       body: ' \n \n    This is the first line of Note #1     \n \n ' +
       'Yesterday I went to the mall. It was great.'
     };
 
-    const wrapper = shallow(<NoteListItem isSelected note={testNote} onSelectNote={mockData.onSelectNote} />);
+    const wrapper = shallow(<NoteListItem isSelected note={testNote} onSelectNote={mockProps.onSelectNote} />);
 
     const result = wrapper.instance().getNoteTitle();
 
@@ -76,13 +67,13 @@ describe('getNoteTitle()', () => {
 
   it("returns a predefined 'Empty'-Message if the note's body is empty", () => {
     const testNote = {
-      ...mockData.note,
+      ...mockProps.note,
       body: ''
     };
     const emptyNoteTitle = 'Empty';
 
     const wrapper = shallow(
-      <NoteListItem isSelected note={testNote} onSelectNote={mockData.onSelectNote} emptyNoteTitle={emptyNoteTitle} />
+      <NoteListItem isSelected note={testNote} onSelectNote={mockProps.onSelectNote} emptyNoteTitle={emptyNoteTitle} />
     );
 
     const result = wrapper.instance().getNoteTitle();
