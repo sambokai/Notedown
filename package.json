@@ -43,7 +43,7 @@
     "dev": "webpack-dev-server"
   },
   "jest": {
-    "setupTestFrameworkScriptFile": "./src/jest.setup.js",
+    "setupTestFrameworkScriptFile": "./test/jest.setup.js",
     "collectCoverage": true,
     "coverageDirectory": "coverage",
     "collectCoverageFrom": ["src/**/*.{js,jsx}", "!**/node_modules/**", "!**/vendor/**", "!**/jest.setup.js"],
