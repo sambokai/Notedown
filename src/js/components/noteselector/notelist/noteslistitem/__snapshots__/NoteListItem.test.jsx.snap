@@ -25,29 +25,3 @@ exports[`<NoteListItem/> renders correctly 1`] = `
   </div>
 </a>
 `;
-
-exports[`renders correctly 1`] = `
-<a
-  className="flex-column align-items-center list-group-item list-group-item-action px-2
-              active
-              "
-  onClick={[Function]}
-  onKeyDown={[Function]}
-  role="button"
-  tabIndex={-1}
->
-  <div
-    className="d-flex w-100 align-items-center justify-content-between"
-  >
-    <p
-      className="text-truncate pr-2 mb-0"
-      id="note-list-item-title"
-    >
-      This is Note #1
-    </p>
-    <small>
-      01.01.18
-    </small>
-  </div>
-</a>
-`;
