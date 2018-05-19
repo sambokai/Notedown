@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ActionBar/> renders correctly with delete-button disabled if creation of new notes is forbidden 1`] = `
+<nav
+  className="navbar navbar-dark bg-dark justify-content-between"
+>
+  <a
+    className="navbar-brand"
+    href="/"
+  >
+    Notedown
+  </a>
+  <form
+    className="form-inline"
+  >
+    <button
+      className="btn btn-primary ml-2 disabled"
+      id="new-note-button"
+      onClick={[MockFunction]}
+      type="button"
+    >
+      New Note
+    </button>
+    <button
+      className="btn btn-danger ml-2"
+      id="delete-note-button"
+      onClick={[MockFunction]}
+      type="button"
+    >
+      Delete
+    </button>
+  </form>
+</nav>
+`;
+
+exports[`<ActionBar/> renders correctly with delete-button enabled if creation of new notes is allowed 1`] = `
+<nav
+  className="navbar navbar-dark bg-dark justify-content-between"
+>
+  <a
+    className="navbar-brand"
+    href="/"
+  >
+    Notedown
+  </a>
+  <form
+    className="form-inline"
+  >
+    <button
+      className="btn btn-primary ml-2 "
+      id="new-note-button"
+      onClick={[MockFunction]}
+      type="button"
+    >
+      New Note
+    </button>
+    <button
+      className="btn btn-danger ml-2"
+      id="delete-note-button"
+      onClick={[MockFunction]}
+      type="button"
+    >
+      Delete
+    </button>
+  </form>
+</nav>
+`;
