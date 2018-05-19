@@ -31,7 +31,7 @@ onSelectNoteMock.mockReturnValue('This Note was selected');
 const mockProps = {
   note: {
     body: 'This is Note #1',
-    id: 1,
+    id: 99,
     lastChange: new Date(Date.UTC(2018, 0, 1)).valueOf()
   },
   draggableProvided: {},
@@ -42,9 +42,7 @@ describe('<NoteListItem/>', () => {
   it('renders correctly if the item is selected', () => {
     const wrapper = renderer
       .create(
-        <DragDropContext>
-          <NoteListItem {...mockProps} isSelected />
-        </DragDropContext>
+        <NoteListItem {...mockProps} isSelected />
       );
 
     expect(wrapper)
@@ -54,13 +52,29 @@ describe('<NoteListItem/>', () => {
   it('renders correctly if the item is NOT selected', () => {
     const wrapper = renderer
       .create(
-        <DragDropContext>
-          <NoteListItem {...mockProps} isSelected={false} />
-        </DragDropContext>
+        <NoteListItem {...mockProps} isSelected={false} />
       );
 
     expect(wrapper)
       .toMatchSnapshot();
+  });
+
+  it("calls onSelectNote callback, upon click with the note's id as the function argument", () => {
+    const wrapper = shallow(<NoteListItem {...mockProps} isSelected={false} />);
+
+    wrapper.find('a').simulate('click');
+
+    expect(onSelectNoteMock.mock.calls).toHaveLength(1);
+    expect(onSelectNoteMock.mock.calls[0][0]).toBe(mockProps.note.id);
+  });
+
+  it("calls onSelectNote callback, upon keyDown with the note's id as the function argument", () => {
+    const wrapper = shallow(<NoteListItem {...mockProps} isSelected={false} />);
+
+    wrapper.find('a').simulate('keyDown');
+
+    expect(onSelectNoteMock.mock.calls).toHaveLength(1);
+    expect(onSelectNoteMock.mock.calls[0][0]).toBe(mockProps.note.id);
   });
 });
 
