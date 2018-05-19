@@ -36,7 +36,11 @@ NoteList.propTypes = {
     body: PropTypes.string,
     id: PropTypes.number,
   }).isRequired,
-  searchQuery: PropTypes.string.isRequired,
+  searchQuery: PropTypes.string,
+};
+
+NoteList.defaultProps = {
+  searchQuery: '',
 };
 
 
