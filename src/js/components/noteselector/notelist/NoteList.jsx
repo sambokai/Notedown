@@ -21,14 +21,13 @@ class NoteList extends React.Component {
                   index={index}
                   key={note.id}
                 >
-                  {(draggableProvided, draggableSnapshot) => (
+                  {draggableProvided => (
                     <NoteListItem
                       draggableProvided={draggableProvided}
                       note={note}
                       key={note.id}
                       onSelectNote={this.props.onSelectNote}
                       isSelected={note === this.props.selectedNote}
-                      isDragging={draggableSnapshot.isDragging}
                     />
                   )}
                 </Draggable>

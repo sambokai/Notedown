@@ -32,7 +32,7 @@ class NoteListItem extends React.Component {
         tabIndex={-1}
         className={
           `flex-column align-items-center list-group-item list-group-item-action px-2
-              ${(this.props.isSelected) && !this.props.isDragging ? 'active' : ''}
+              ${(this.props.isSelected) ? 'active' : ''}
               ${this.props.note.body ? '' : 'disabled font-weight-light bg-secondary text-white'}`
         }
         onClick={() => this.props.onSelectNote(this.props.note.id)}
@@ -58,7 +58,6 @@ NoteListItem.propTypes = {
   onSelectNote: PropTypes.func.isRequired,
   emptyNoteTitle: PropTypes.string,
   isSelected: PropTypes.bool.isRequired,
-  isDragging: PropTypes.bool.isRequired,
 
   draggableProvided: PropTypes.shape({
     innerRef: PropTypes.func,
