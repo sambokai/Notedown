@@ -9,6 +9,19 @@ import { DragDropContext } from 'react-beautiful-dnd';
 
 import NoteListItem from './NoteListItem';
 
+let dateNowSpy;
+const lockedTime = new Date(2010, 6, 15, 12).valueOf();
+
+beforeAll(() => {
+  // Lock Time
+  dateNowSpy = jest.spyOn(Date, 'now').mockImplementation(() => lockedTime);
+});
+
+afterAll(() => {
+  // Unlock Time
+  dateNowSpy.mockReset();
+  dateNowSpy.mockRestore();
+});
 
 const onSelectNoteMock = jest.fn();
 onSelectNoteMock.mockReturnValue('This Note was selected');
@@ -17,7 +30,7 @@ const mockData = {
   note: {
     body: 'This is Note #1',
     id: 1,
-    lastChange: new Date(2018, 0).valueOf()
+    lastChange: new Date(Date.UTC(2018, 0, 1)).valueOf()
   },
   draggableProvided: {},
   onSelectNote: onSelectNoteMock
@@ -73,5 +86,31 @@ describe('getNoteTitle()', () => {
     const result = wrapper.instance().getNoteTitle();
 
     expect(result).toBe(emptyNoteTitle);
+  });
+});
+
+describe('getRelativeCalendarDate(date)', () => {
+  it('returns exact time, if the provided date was today', () => {
+    const lastChange = new Date(lockedTime);
+    lastChange.setHours(lastChange.getHours() - 6);
+
+    const relativeDate = NoteListItem.getRelativeCalendarDate(lastChange);
+    expect(relativeDate).toBe('06:00');
+  });
+
+  it('returns \'Yesterday\', if the provided date was yesterday', () => {
+    const lastChange = new Date(lockedTime);
+    lastChange.setHours(lastChange.getHours() - 24);
+
+    const relativeDate = NoteListItem.getRelativeCalendarDate(lastChange);
+    expect(relativeDate).toBe('Yesterday');
+  });
+
+  it('returns exact date, if the provided date was more than 24 hours ago', () => {
+    const lastChange = new Date(lockedTime);
+    lastChange.setHours(lastChange.getHours() - (24 * 7));
+
+    const relativeDate = NoteListItem.getRelativeCalendarDate(lastChange);
+    expect(relativeDate).toBe('08.07.10');
   });
 });
