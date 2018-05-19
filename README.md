@@ -1,4 +1,4 @@
-# Notedown [![Build Status](https://travis-ci.com/sambokai/Notedown.svg?token=B3c5dqi77zsc6HReanrw&branch=master)](https://travis-ci.com/sambokai/Notedown)
+# Notedown [![Build Status](https://travis-ci.com/sambokai/Notedown.svg?token=B3c5dqi77zsc6HReanrw&branch=master)](https://travis-ci.com/sambokai/Notedown) [![codecov](https://codecov.io/gh/sambokai/Notedown/branch/master/graph/badge.svg?token=Ak3YxHVPFs)](https://codecov.io/gh/sambokai/Notedown)
 ###### Learning Project
 
 [Live Demo](http://notedown.sambokai.com)
