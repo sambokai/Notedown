@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<NoteList/> renders correctly 1`] = `
+<NoteList
+  notes={
+    Array [
+      Object {
+        "body": "This is Note#1",
+        "id": 1,
+        "lastChange": 1514761200000,
+      },
+      Object {
+        "body": "This is Note#2",
+        "id": 2,
+        "lastChange": 1514847600000,
+      },
+      Object {
+        "body": "This is Note#3",
+        "id": 3,
+        "lastChange": 1514934000000,
+      },
+      Object {
+        "body": "This is Note#4",
+        "id": 4,
+        "lastChange": 1515020400000,
+      },
+    ]
+  }
+  onSelectNote={[MockFunction]}
+  searchQuery=""
+  selectedNote={
+    Object {
+      "body": "This is Note#3",
+      "id": 3,
+      "lastChange": 1514934000000,
+    }
+  }
+/>
+`;
