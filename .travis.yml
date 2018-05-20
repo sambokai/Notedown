@@ -7,6 +7,9 @@ script:
 - npm test
 - codecov
 - npm run build
+cache:
+  directories:
+    - "node_modules"
 deploy:
   provider: s3
   region: eu-central-1
