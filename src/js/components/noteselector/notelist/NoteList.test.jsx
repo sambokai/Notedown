@@ -15,10 +15,10 @@ const onSelectNoteMock = jest.fn();
 
 let mockProps = {
   notes: [
-    { body: 'This is Note#1', id: 1, lastChange: new Date(2018, 0, 1).valueOf() },
-    { body: 'This is Note#2', id: 2, lastChange: new Date(2018, 0, 2).valueOf() },
-    { body: 'This is Note#3', id: 3, lastChange: new Date(2018, 0, 3).valueOf() },
-    { body: 'This is Note#4', id: 4, lastChange: new Date(2018, 0, 4).valueOf() },
+    { body: 'This is Note#1', id: 1, lastChange: 1514761200000 },
+    { body: 'This is Note#2', id: 2, lastChange: 1514847600000 },
+    { body: 'This is Note#3', id: 3, lastChange: 1514934000000 },
+    { body: 'This is Note#4', id: 4, lastChange: 1515020400000 },
   ],
   onSelectNote: onSelectNoteMock,
 };
