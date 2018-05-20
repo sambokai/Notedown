@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<App/> should render correctly 1`] = `
+<DragDropContext
+  onDragEnd={[Function]}
+>
+  <div
+    className="container"
+  >
+    <ActionBar
+      noteCreationAllowed={true}
+      onCreateNote={[Function]}
+      onDeleteNote={[Function]}
+    />
+    <div
+      className="row py-1 no-gutters"
+    >
+      <div
+        className="col-4 pr-2"
+      >
+        <NoteSelector
+          notes={Array []}
+          onSelectNote={[Function]}
+          selectedNote={Object {}}
+        />
+      </div>
+      <div
+        className="col-8 pl-1"
+      >
+        <[object Object]
+          noNoteMessage="Create a new note by clicking the 'New Note' Button"
+          note={Object {}}
+          onUpdateNote={[Function]}
+          setAllowNoteCreation={[Function]}
+        />
+      </div>
+    </div>
+  </div>
+</DragDropContext>
+`;
