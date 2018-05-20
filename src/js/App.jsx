@@ -192,7 +192,9 @@ class App extends React.Component {
   }
 
   focusTextEditorTextarea() {
-    this.textEditorTextarea.current.focus();
+    if (this.textEditorTextarea.current) {
+      this.textEditorTextarea.current.focus();
+    }
   }
 
   render() {
