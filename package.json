@@ -51,7 +51,8 @@
       "src/**/*.{js,jsx}",
       "!**/node_modules/**",
       "!**/vendor/**",
-      "!**/jest.setup.js"
+      "!**/jest.setup.js",
+      "!src/index.jsx"
     ],
     "clearMocks": true
   }

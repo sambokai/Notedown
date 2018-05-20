@@ -1,5 +1,4 @@
 import React from 'react';
-import { render } from 'react-dom';
 
 import Mousetrap from 'mousetrap';
 import { DragDropContext } from 'react-beautiful-dnd';
@@ -236,4 +235,4 @@ class App extends React.Component {
   }
 }
 
-render(<App />, document.getElementById('app'));
+export default App;
