@@ -42,12 +42,13 @@ TextEditor.propTypes = {
   }).isRequired,
   onUpdateNote: PropTypes.func.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
-  textAreaRef: PropTypes.object.isRequired,
+  textAreaRef: PropTypes.object,
 };
 
 TextEditor.defaultProps = {
   placeholder: 'Write your notes in here...',
   noNoteMessage: 'No note selected',
+  textAreaRef: null,
 };
 
 export default React.forwardRef((props, ref) =>
