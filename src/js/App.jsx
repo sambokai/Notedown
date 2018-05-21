@@ -36,8 +36,6 @@ class App extends React.Component {
     // Keyboard Shortcuts
     Mousetrap.bind('ctrl+n', this.addEmptyNote);
     Mousetrap.bind('ctrl+d', () => this.deleteNote(this.readSelectedIdFromURL()));
-
-    this.textEditorTextarea = React.createRef();
   }
 
   componentWillMount() {
@@ -45,7 +43,6 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.focusTextEditorTextarea();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -130,8 +127,6 @@ class App extends React.Component {
       this.setAllowNoteCreation(false);
       this.props.history.push(`/notes/${newNote.id}`);
     }
-
-    this.focusTextEditorTextarea();
   };
 
   deleteNote = (noteToBeDeletedId) => {
@@ -161,8 +156,6 @@ class App extends React.Component {
 
       // If deleted note was empty, allow creation again
       if (noteToBeDeletedObject.body === '') this.setAllowNoteCreation(true);
-
-      this.focusTextEditorTextarea();
     }
   };
 
@@ -189,12 +182,6 @@ class App extends React.Component {
         {content}
       </DragDropContext>
     );
-  }
-
-  focusTextEditorTextarea() {
-    if (this.textEditorTextarea.current) {
-      this.textEditorTextarea.current.focus();
-    }
   }
 
   render() {
@@ -224,7 +211,6 @@ class App extends React.Component {
                       <TextEditor
                         note={note}
                         onUpdateNote={newText => this.handleTextEditorNoteUpdate(newText, note.id)}
-                        ref={this.textEditorTextarea}
                       />
                     )}
                   />
@@ -237,7 +223,6 @@ class App extends React.Component {
                       <TextEditor
                         note={{}}
                         onUpdateNote={this.handleTextEditorNoteUpdate}
-                        ref={this.textEditorTextarea}
                         noNoteMessage={
                           this.state.notes.length
                             ? this.state.noNoteSelectedMessage

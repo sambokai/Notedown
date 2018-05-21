@@ -2,6 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class TextEditor extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.textArea = React.createRef();
+  }
+
+  componentDidMount() {
+    if (this.textArea.current) {
+      this.textArea.current.focus();
+    }
+  }
+
   handleChange = (e) => {
     this.props.onUpdateNote(e.target.value);
   };
@@ -10,11 +22,11 @@ class TextEditor extends React.Component {
     return Object.keys(this.props.note).length === 0;
   }
 
+
   render() {
     const textAreaStyle = {
       resize: 'none',
     };
-
 
     return (
       <textarea
@@ -27,7 +39,7 @@ class TextEditor extends React.Component {
         disabled={this.emptyNotePassed()}
         value={this.emptyNotePassed() ? '' : this.props.note.body}
         onChange={this.handleChange}
-        ref={this.props.textAreaRef}
+        ref={this.textArea}
       />
     );
   }
@@ -41,15 +53,11 @@ TextEditor.propTypes = {
     id: PropTypes.number,
   }).isRequired,
   onUpdateNote: PropTypes.func.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
-  textAreaRef: PropTypes.object,
 };
 
 TextEditor.defaultProps = {
   placeholder: 'Write your notes in here...',
   noNoteMessage: 'No note selected',
-  textAreaRef: null,
 };
 
-export default React.forwardRef((props, ref) =>
-  <TextEditor {...props} textAreaRef={ref} />);
+export default TextEditor;
