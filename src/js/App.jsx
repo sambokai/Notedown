@@ -198,6 +198,10 @@ class App extends React.Component {
   }
 
   render() {
+    const style = {
+      height: '450px',
+    };
+
     const components = {
       app: (
         <div className="container">
@@ -206,12 +210,10 @@ class App extends React.Component {
             onDeleteNote={() => this.deleteNote(this.readSelectedIdFromURL())}
             noteCreationAllowed={this.state.noteCreationAllowed}
           />
-          <div className="row py-1 no-gutters">
-            <div className="col-4 pr-2">
-              <NoteSelector
-                notes={this.state.notes}
-              />
-            </div>
+          <div className="row py-1 no-gutters" style={style}>
+            <NoteSelector
+              notes={this.state.notes}
+            />
             <div className="col-8 pl-1">
               <Switch>
                 {this.state.notes.map(note => (

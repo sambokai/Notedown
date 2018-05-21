@@ -2,7 +2,7 @@
 
 exports[`<TextEditor/> should render a disabled html-textarea if NO note is passed 1`] = `
 <textarea
-  class="w-100 mousetrap"
+  class="w-100 h-100 mousetrap"
   disabled=""
   placeholder="No note selected"
   rows="15"
@@ -12,7 +12,7 @@ exports[`<TextEditor/> should render a disabled html-textarea if NO note is pass
 
 exports[`<TextEditor/> should render correctly if a note is passed 1`] = `
 <textarea
-  class="w-100 mousetrap"
+  class="w-100 h-100 mousetrap"
   placeholder="Write your notes in here..."
   rows="15"
   style="resize:none"

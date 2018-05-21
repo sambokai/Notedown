@@ -21,7 +21,7 @@ class NoteSelector extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="mh-100 col-4 pr-2">
         <NotesListFilterSearch onUpdateSearchQuery={this.handleSearchQueryUpdate} />
         <Route
           path="/notes/:id?"

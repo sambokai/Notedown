@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<NoteSelector/> should render correctly 1`] = `
-<div>
+<div
+  className="mh-100 col-4 pr-2"
+>
   <NotesListFilterSearch
     onUpdateSearchQuery={[Function]}
   />
