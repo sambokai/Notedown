@@ -7,7 +7,7 @@ function NotesListFilterSearch(props) {
     height: '10%',
   };
   return (
-    <div className="form-row mb-1" style={style}>
+    <div className="form-row" style={style}>
       <div className="col">
         <input
           type="text"
