@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Moment from 'moment/moment';
+import { Link } from 'react-router-dom';
 
 
 class NoteListItem extends React.Component {
@@ -25,19 +26,16 @@ class NoteListItem extends React.Component {
 
   render() {
     return (
-      <a
-        ref={this.props.draggableProvided.innerRef}
+      <Link
+        innerRef={this.props.draggableProvided.innerRef}
         {...this.props.draggableProvided.draggableProps}
         {...this.props.draggableProvided.dragHandleProps}
-        role="button"
-        tabIndex={-1}
+        to={`/notes/${this.props.note.id}`}
         className={
-          `flex-column align-items-center list-group-item list-group-item-action px-2
-              ${(this.props.isSelected) ? 'active' : ''}
-              ${this.props.note.body ? '' : 'disabled font-weight-light bg-secondary text-white'}`
-        }
-        onClick={() => this.props.onSelectNote(this.props.note.id)}
-        onKeyDown={() => this.props.onSelectNote(this.props.note.id)}
+            `flex-column align-items-center list-group-item list-group-item-action px-2
+                ${(this.props.isSelected) ? 'active' : ''}
+                ${this.props.note.body ? '' : 'disabled font-weight-light bg-secondary text-white'}`
+          }
       >
         <div className="d-flex w-100 align-items-center justify-content-between">
           <p id="note-list-item-title" className="text-truncate pr-2 mb-0">{this.getNoteTitle()}</p>
@@ -45,7 +43,7 @@ class NoteListItem extends React.Component {
             {NoteListItem.getRelativeCalendarDate(this.props.note.lastChange)}
           </small>
         </div>
-      </a>
+      </Link>
     );
   }
 }
@@ -56,10 +54,8 @@ NoteListItem.propTypes = {
     id: PropTypes.number,
     lastChange: PropTypes.number,
   }).isRequired,
-  onSelectNote: PropTypes.func.isRequired,
   emptyNoteTitle: PropTypes.string,
   isSelected: PropTypes.bool.isRequired,
-
   draggableProvided: PropTypes.shape({
     innerRef: PropTypes.func,
     draggableProps: PropTypes.object,

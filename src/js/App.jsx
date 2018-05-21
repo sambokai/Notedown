@@ -1,4 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
+import { Route, Switch } from 'react-router-dom';
 
 import Mousetrap from 'mousetrap';
 import { DragDropContext } from 'react-beautiful-dnd';
@@ -25,7 +28,6 @@ class App extends React.Component {
 
     this.state = {
       notes: [],
-      selectedNoteId: null,
       noteCreationAllowed: true,
       noNoteSelectedMessage: 'Please select a note to display it.',
       noExistingNotesMessage: "Create a new note by clicking the 'New Note' Button",
@@ -33,7 +35,7 @@ class App extends React.Component {
 
     // Keyboard Shortcuts
     Mousetrap.bind('ctrl+n', this.addEmptyNote);
-    Mousetrap.bind('ctrl+d', () => this.deleteNote(this.state.selectedNoteId));
+    Mousetrap.bind('ctrl+d', () => this.deleteNote(this.readSelectedIdFromURL()));
 
     this.textEditorTextarea = React.createRef();
   }
@@ -47,8 +49,9 @@ class App extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.selectedNoteId !== this.state.selectedNoteId) {
-      this.noteSelectionChanged(prevState.selectedNoteId, this.state.selectedNoteId);
+    const prevId = parseInt(prevProps.match.params.id, 10);
+    if (prevId !== this.readSelectedIdFromURL()) {
+      this.noteSelectionChanged(prevId, this.readSelectedIdFromURL());
     }
 
     this.syncToLocalStorage(prevState);
@@ -84,6 +87,10 @@ class App extends React.Component {
     return index === -1 ? undefined : index;
   }
 
+  readSelectedIdFromURL() {
+    return parseInt(this.props.match.params.id, 10) || null;
+  }
+
   syncFromLocalStorage() {
     const noteCreationAllowed = Persistence.readFromLocalStorage('noteCreationAllowed');
     if (noteCreationAllowed !== null) this.setState({ noteCreationAllowed });
@@ -93,9 +100,6 @@ class App extends React.Component {
       const instantiatedNotes = notes.map(note => Note.fromObject(note));
       this.setState({ notes: instantiatedNotes });
     }
-
-    const selectedNoteId = Persistence.readFromLocalStorage('selectedNoteId');
-    if (selectedNoteId) this.setState({ selectedNoteId });
   }
 
   syncToLocalStorage(prevState) {
@@ -104,9 +108,6 @@ class App extends React.Component {
     }
     if (prevState.notes !== this.state.notes) {
       Persistence.writeToLocalStorage('notes', this.state.notes);
-    }
-    if (prevState.selectedNoteId !== this.state.selectedNoteId) {
-      Persistence.writeToLocalStorage('selectedNoteId', this.state.selectedNoteId);
     }
   }
 
@@ -121,13 +122,13 @@ class App extends React.Component {
   addEmptyNote = () => {
     if (this.state.noteCreationAllowed) {
       const newNote = new Note('');
-      const newId = newNote.id;
       this.setState(prevState => ({
         notes: [...prevState.notes, newNote.valueOf()],
-        selectedNoteId: newId.valueOf(),
       }));
       this.setAllowNoteCreation(false);
+      this.props.history.push(`/notes/${newNote.id}`);
     }
+
     this.focusTextEditorTextarea();
   };
 
@@ -148,11 +149,13 @@ class App extends React.Component {
       // Set next selection, if pointing to nothing (e.x. notes list is empty), unselect
       const nextSelectionId = (notes[previousNoteIndexMinZero]) ? notes[previousNoteIndexMinZero].id : null;
 
+      const nextPath = nextSelectionId ? `/notes/${nextSelectionId}` : '/notes';
 
       this.setState({
         notes,
-        selectedNoteId: nextSelectionId,
       });
+
+      this.props.history.push(nextPath);
 
       // If deleted note was empty, allow creation again
       if (noteToBeDeletedObject.body === '') this.setAllowNoteCreation(true);
@@ -162,11 +165,11 @@ class App extends React.Component {
   };
 
 
-  handleTextEditorNoteUpdate = (newText) => {
+  handleTextEditorNoteUpdate = (newText, noteId) => {
     const notes = this.state.notes.slice();
 
     // Index is needed for modification of array with this.setState
-    const selectedIndex = notes.findIndex(note => note.id === this.state.selectedNoteId);
+    const selectedIndex = notes.findIndex(note => note.id === noteId);
     if (typeof notes[selectedIndex] !== 'undefined') { // Check if array contains the selected note's found index
       notes[selectedIndex].body = newText;
       this.setState({ notes });
@@ -174,11 +177,6 @@ class App extends React.Component {
 
     // If the (new) body is empty, disallow creation of new notes.
     this.setAllowNoteCreation(newText !== '');
-  };
-
-
-  handleNotesListClick = (noteId) => {
-    this.setState({ selectedNoteId: noteId });
   };
 
   dragDropContext(content) {
@@ -203,29 +201,49 @@ class App extends React.Component {
         <div className="container">
           <ActionBar
             onCreateNote={this.addEmptyNote}
-            onDeleteNote={() => this.deleteNote(this.state.selectedNoteId)}
+            onDeleteNote={() => this.deleteNote(this.readSelectedIdFromURL())}
             noteCreationAllowed={this.state.noteCreationAllowed}
           />
           <div className="row py-1 no-gutters">
             <div className="col-4 pr-2">
               <NoteSelector
                 notes={this.state.notes}
-                onSelectNote={this.handleNotesListClick}
-                selectedNote={this.getNote(this.state.selectedNoteId)}
               />
             </div>
             <div className="col-8 pl-1">
-              <TextEditor
-                note={this.getNote(this.state.selectedNoteId)}
-                onUpdateNote={this.handleTextEditorNoteUpdate}
-                ref={this.textEditorTextarea}
-                setAllowNoteCreation={this.setAllowNoteCreation}
-                noNoteMessage={
-                  this.state.notes.length
-                    ? this.state.noNoteSelectedMessage
-                    : this.state.noExistingNotesMessage
-                }
-              />
+              <Switch>
+                {this.state.notes.map(note => (
+                  <Route
+                    key={note.id}
+                    path={`/notes/${note.id}`}
+                    render={() => (
+                      <TextEditor
+                        note={note}
+                        onUpdateNote={newText => this.handleTextEditorNoteUpdate(newText, note.id)}
+                        ref={this.textEditorTextarea}
+                      />
+                    )}
+                  />
+                )).concat([(
+                  <Route
+                    exact
+                    key="empty-note"
+                    path="/notes/"
+                    render={() => (
+                      <TextEditor
+                        note={{}}
+                        onUpdateNote={this.handleTextEditorNoteUpdate}
+                        ref={this.textEditorTextarea}
+                        noNoteMessage={
+                          this.state.notes.length
+                            ? this.state.noNoteSelectedMessage
+                            : this.state.noExistingNotesMessage
+                        }
+                      />
+                    )}
+                  />
+                )])}
+              </Switch>
             </div>
           </div>
         </div>),
@@ -236,5 +254,16 @@ class App extends React.Component {
     );
   }
 }
+
+App.propTypes = {
+  // eslint-disable-next-line react/require-default-props
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }),
+  // eslint-disable-next-line react/require-default-props, react/forbid-prop-types
+  history: PropTypes.object,
+};
 
 export default App;

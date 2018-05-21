@@ -26,8 +26,7 @@ class NoteList extends React.Component {
                       draggableProvided={draggableProvided}
                       note={note}
                       key={note.id}
-                      onSelectNote={this.props.onSelectNote}
-                      isSelected={note === this.props.selectedNote}
+                      isSelected={note.id === parseInt(this.props.match.params.id, 10)}
                     />
                   )}
                 </Draggable>
@@ -40,13 +39,14 @@ class NoteList extends React.Component {
 }
 
 NoteList.propTypes = {
-// eslint-disable-next-line react/forbid-prop-types
+  // eslint-disable-next-line react/forbid-prop-types
   notes: PropTypes.arrayOf(PropTypes.object).isRequired,
-  onSelectNote: PropTypes.func.isRequired,
-  selectedNote: PropTypes.shape({
-    body: PropTypes.string,
-    id: PropTypes.number,
-  }).isRequired,
+  // eslint-disable-next-line react/require-default-props
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }),
   searchQuery: PropTypes.string,
 };
 

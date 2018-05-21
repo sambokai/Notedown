@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Route } from 'react-router-dom';
+
 import NoteList from './notelist/NoteList';
 import NotesListFilterSearch from './notesearch/NotesListFilterSearch';
 
@@ -21,11 +23,15 @@ class NoteSelector extends React.Component {
     return (
       <div>
         <NotesListFilterSearch onUpdateSearchQuery={this.handleSearchQueryUpdate} />
-        <NoteList
-          notes={this.props.notes}
-          onSelectNote={this.props.onSelectNote}
-          selectedNote={this.props.selectedNote}
-          searchQuery={this.state.searchQuery}
+        <Route
+          path="/notes/:id?"
+          component={props => (
+            <NoteList
+              notes={this.props.notes}
+              searchQuery={this.state.searchQuery}
+              {...props}
+            />
+          )}
         />
       </div>
     );
@@ -34,11 +40,6 @@ class NoteSelector extends React.Component {
 
 NoteSelector.propTypes = {
   notes: PropTypes.arrayOf(PropTypes.object).isRequired,
-  onSelectNote: PropTypes.func.isRequired,
-  selectedNote: PropTypes.shape({
-    body: PropTypes.string,
-    id: PropTypes.number,
-  }).isRequired,
 };
 
 export default NoteSelector;
