@@ -27,19 +27,24 @@ exports[`<App/> should render correctly, when notes are existing 1`] = `
               },
             ]
           }
-          onSelectNote={[Function]}
-          selectedNote={Object {}}
         />
       </div>
       <div
         className="col-8 pl-1"
       >
-        <[object Object]
-          noNoteMessage="Please select a note to display it."
-          note={Object {}}
-          onUpdateNote={[Function]}
-          setAllowNoteCreation={[Function]}
-        />
+        <Switch>
+          <Route
+            key="5"
+            path="/notes/5"
+            render={[Function]}
+          />
+          <Route
+            exact={true}
+            key="empty-note"
+            path="/notes/"
+            render={[Function]}
+          />
+        </Switch>
       </div>
     </div>
   </div>
@@ -66,19 +71,19 @@ exports[`<App/> should render correctly, when there are no notes 1`] = `
       >
         <NoteSelector
           notes={Array []}
-          onSelectNote={[Function]}
-          selectedNote={Object {}}
         />
       </div>
       <div
         className="col-8 pl-1"
       >
-        <[object Object]
-          noNoteMessage="Create a new note by clicking the 'New Note' Button"
-          note={Object {}}
-          onUpdateNote={[Function]}
-          setAllowNoteCreation={[Function]}
-        />
+        <Switch>
+          <Route
+            exact={true}
+            key="empty-note"
+            path="/notes/"
+            render={[Function]}
+          />
+        </Switch>
       </div>
     </div>
   </div>

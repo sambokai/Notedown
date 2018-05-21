@@ -1,6 +1,7 @@
 /* eslint-disable comma-dangle,function-paren-newline */
 
 import React from 'react';
+import { MemoryRouter } from 'react-router-dom';
 
 import { shallow } from 'enzyme';
 import renderer from 'react-test-renderer';
@@ -38,7 +39,9 @@ describe('<NoteListItem/>', () => {
   it('renders correctly if the item is selected', () => {
     const wrapper = renderer
       .create(
-        <NoteListItem {...mockProps} isSelected />
+        <MemoryRouter>
+          <NoteListItem {...mockProps} isSelected />
+        </MemoryRouter>
       );
 
     expect(wrapper)
@@ -48,29 +51,13 @@ describe('<NoteListItem/>', () => {
   it('renders correctly if the item is NOT selected', () => {
     const wrapper = renderer
       .create(
-        <NoteListItem {...mockProps} isSelected={false} />
+        <MemoryRouter>
+          <NoteListItem {...mockProps} isSelected={false} />
+        </MemoryRouter>
       );
 
     expect(wrapper)
       .toMatchSnapshot();
-  });
-
-  it("calls onSelectNote callback, upon click with the note's id as the function argument", () => {
-    const wrapper = shallow(<NoteListItem {...mockProps} isSelected={false} />);
-
-    wrapper.find('a').simulate('click');
-
-    expect(onSelectNoteMock.mock.calls).toHaveLength(1);
-    expect(onSelectNoteMock.mock.calls[0][0]).toBe(mockProps.note.id);
-  });
-
-  it("calls onSelectNote callback, upon keyDown with the note's id as the function argument", () => {
-    const wrapper = shallow(<NoteListItem {...mockProps} isSelected={false} />);
-
-    wrapper.find('a').simulate('keyDown');
-
-    expect(onSelectNoteMock.mock.calls).toHaveLength(1);
-    expect(onSelectNoteMock.mock.calls[0][0]).toBe(mockProps.note.id);
   });
 });
 
