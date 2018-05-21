@@ -3,6 +3,7 @@
 exports[`<NotesListFilterSearch/> should render correctly 1`] = `
 <div
   class="form-row mb-1"
+  style="height:10%"
 >
   <div
     class="col"

@@ -15,10 +15,15 @@ class NoteList extends React.Component {
       urlId = parseInt(this.props.match.params.id, 10);
     }
 
+    const style = {
+      overflowY: 'scroll',
+      height: '90%',
+    };
+
     return (
       <Droppable droppableId="notesListDroppable">
         {droppableProvided => (
-          <div className="list-group" ref={droppableProvided.innerRef}>
+          <div className="list-group" style={style} ref={droppableProvided.innerRef}>
             {this.filteredNotes().map((note, index) =>
               (
                 <Draggable
