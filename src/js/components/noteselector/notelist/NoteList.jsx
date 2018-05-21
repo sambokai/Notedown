@@ -10,6 +10,11 @@ class NoteList extends React.Component {
   }
 
   render() {
+    let urlId;
+    if (this.props.match && this.props.match.params) {
+      urlId = parseInt(this.props.match.params.id, 10);
+    }
+
     return (
       <Droppable droppableId="notesListDroppable">
         {droppableProvided => (
@@ -26,7 +31,7 @@ class NoteList extends React.Component {
                       draggableProvided={draggableProvided}
                       note={note}
                       key={note.id}
-                      isSelected={note.id === parseInt(this.props.match.params.id, 10)}
+                      isSelected={note.id === urlId}
                     />
                   )}
                 </Draggable>
