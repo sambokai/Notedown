@@ -49,9 +49,11 @@ class App extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const prevId = parseInt(prevProps.match.params.id, 10);
-    if (prevId !== this.readSelectedIdFromURL()) {
-      this.noteSelectionChanged(prevId, this.readSelectedIdFromURL());
+    if (prevProps.match && prevProps.match.params) {
+      const prevId = parseInt(prevProps.match.params.id, 10);
+      if (prevId !== this.readSelectedIdFromURL()) {
+        this.noteSelectionChanged(prevId, this.readSelectedIdFromURL());
+      }
     }
 
     this.syncToLocalStorage(prevState);
