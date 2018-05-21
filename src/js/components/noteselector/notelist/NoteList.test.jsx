@@ -1,4 +1,5 @@
 import React from 'react';
+import { MemoryRouter } from 'react-router-dom';
 
 import { mount, shallow } from 'enzyme';
 
@@ -41,11 +42,14 @@ describe('<NoteList/>', () => {
 describe('filteredNotes()', () => {
   it('should return all notes, if no search query prop was passed', () => {
     const wrapper = mount((
-      <DragDropContext>
-        <NoteList
-          {...mockProps}
-        />
-      </DragDropContext>));
+      <MemoryRouter>
+        <DragDropContext>
+          <NoteList
+            {...mockProps}
+          />
+        </DragDropContext>
+      </MemoryRouter>
+    ));
 
     const result = wrapper.find(NoteList)
       .instance()
@@ -57,12 +61,15 @@ describe('filteredNotes()', () => {
 
   it('should return all notes containing, whose bodies contain the search query string', () => {
     const wrapper = mount((
-      <DragDropContext>
-        <NoteList
-          {...mockProps}
-          searchQuery="Note#4"
-        />
-      </DragDropContext>));
+      <MemoryRouter>
+        <DragDropContext>
+          <NoteList
+            {...mockProps}
+            searchQuery="Note#4"
+          />
+        </DragDropContext>
+      </MemoryRouter>
+    ));
 
     const result = wrapper.find(NoteList)
       .instance()
