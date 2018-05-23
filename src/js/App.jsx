@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Route, Switch } from 'react-router-dom';
-
 import Mousetrap from 'mousetrap';
 import { DragDropContext } from 'react-beautiful-dnd';
 
@@ -84,7 +82,9 @@ class App extends React.Component {
   }
 
   readSelectedIdFromURL() {
-    return parseInt(this.props.match.params.id, 10) || null;
+    if (this.props.match) {
+      return parseInt(this.props.match.params.id, 10) || null;
+    } return null;
   }
 
   syncFromLocalStorage() {
@@ -195,48 +195,20 @@ class App extends React.Component {
             noteCreationAllowed={this.state.noteCreationAllowed}
           />
           <div className="row py-1 no-gutters" style={style}>
-            <Route
-              path="/notes/:id?"
-              render={props => (
-                <NoteSelector
-                  notes={this.state.notes}
-                  {...props}
-                  selectedId={this.readSelectedIdFromURL()}
-                />
-              )}
+            <NoteSelector
+              notes={this.state.notes}
+              selectedId={this.readSelectedIdFromURL()}
             />
             <div className="col-8 pl-1">
-              <Switch>
-                {this.state.notes.map(note => (
-                  <Route
-                    key={note.id}
-                    path={`/notes/${note.id}`}
-                    render={() => (
-                      <TextEditor
-                        note={note}
-                        onUpdateNote={newText => this.handleTextEditorNoteUpdate(newText, note.id)}
-                      />
-                    )}
-                  />
-                )).concat([(
-                  <Route
-                    exact
-                    key="empty-note"
-                    path="/notes/"
-                    render={() => (
-                      <TextEditor
-                        note={{}}
-                        onUpdateNote={this.handleTextEditorNoteUpdate}
-                        noNoteMessage={
-                          this.state.notes.length
-                            ? this.state.noNoteSelectedMessage
-                            : this.state.noExistingNotesMessage
-                        }
-                      />
-                    )}
-                  />
-                )])}
-              </Switch>
+              <TextEditor
+                note={this.getNote(this.readSelectedIdFromURL())}
+                onUpdateNote={newText => this.handleTextEditorNoteUpdate(newText, this.readSelectedIdFromURL())}
+                noNoteMessage={
+                  this.state.notes.length
+                    ? this.state.noNoteSelectedMessage
+                    : this.state.noExistingNotesMessage
+                }
+              />
             </div>
           </div>
         </div>),

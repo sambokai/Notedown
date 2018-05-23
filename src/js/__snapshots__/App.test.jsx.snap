@@ -20,26 +20,26 @@ exports[`<App/> should render correctly, when notes are existing 1`] = `
         }
       }
     >
-      <Route
-        path="/notes/:id?"
-        render={[Function]}
+      <NoteSelector
+        notes={
+          Array [
+            Object {
+              "body": "This is a note.",
+              "id": 5,
+            },
+          ]
+        }
+        selectedId={null}
       />
       <div
         className="col-8 pl-1"
       >
-        <Switch>
-          <Route
-            key="5"
-            path="/notes/5"
-            render={[Function]}
-          />
-          <Route
-            exact={true}
-            key="empty-note"
-            path="/notes/"
-            render={[Function]}
-          />
-        </Switch>
+        <TextEditor
+          noNoteMessage="Please select a note to display it."
+          note={Object {}}
+          onUpdateNote={[Function]}
+          placeholder="Write your notes in here..."
+        />
       </div>
     </div>
   </div>
@@ -66,21 +66,19 @@ exports[`<App/> should render correctly, when there are no notes 1`] = `
         }
       }
     >
-      <Route
-        path="/notes/:id?"
-        render={[Function]}
+      <NoteSelector
+        notes={Array []}
+        selectedId={null}
       />
       <div
         className="col-8 pl-1"
       >
-        <Switch>
-          <Route
-            exact={true}
-            key="empty-note"
-            path="/notes/"
-            render={[Function]}
-          />
-        </Switch>
+        <TextEditor
+          noNoteMessage="Create a new note by clicking the 'New Note' Button"
+          note={Object {}}
+          onUpdateNote={[Function]}
+          placeholder="Write your notes in here..."
+        />
       </div>
     </div>
   </div>
