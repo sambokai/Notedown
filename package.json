@@ -36,6 +36,7 @@
     "html-webpack-plugin": "^2.30.1",
     "jest": "^22.4.4",
     "react-test-renderer": "latest",
+    "selenium-webdriver": "^4.0.0-alpha.1",
     "webpack": "^3.12.0",
     "webpack-dev-server": "^2.11.2"
   },
