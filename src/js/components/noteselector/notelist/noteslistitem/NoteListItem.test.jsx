@@ -22,9 +22,6 @@ afterAll(() => {
   dateNowSpy.mockRestore();
 });
 
-const onSelectNoteMock = jest.fn();
-onSelectNoteMock.mockReturnValue('This Note was selected');
-
 const mockProps = {
   note: {
     body: 'This is Note #1',
@@ -32,7 +29,6 @@ const mockProps = {
     lastChange: new Date(Date.UTC(2018, 0, 1)).valueOf()
   },
   draggableProvided: {},
-  onSelectNote: onSelectNoteMock
 };
 
 describe('<NoteListItem/>', () => {
@@ -69,7 +65,7 @@ describe('getNoteTitle()', () => {
       'Yesterday I went to the mall. It was great.'
     };
 
-    const wrapper = shallow(<NoteListItem isSelected note={testNote} onSelectNote={mockProps.onSelectNote} />);
+    const wrapper = shallow(<NoteListItem isSelected note={testNote} />);
 
     const result = wrapper.instance().getNoteTitle();
 
@@ -84,7 +80,7 @@ describe('getNoteTitle()', () => {
     const emptyNoteTitle = 'Empty';
 
     const wrapper = shallow(
-      <NoteListItem isSelected note={testNote} onSelectNote={mockProps.onSelectNote} emptyNoteTitle={emptyNoteTitle} />
+      <NoteListItem isSelected note={testNote} emptyNoteTitle={emptyNoteTitle} />
     );
 
     const result = wrapper.instance().getNoteTitle();

@@ -42,9 +42,6 @@ class App extends React.Component {
     this.syncFromLocalStorage();
   }
 
-  componentDidMount() {
-  }
-
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.match && prevProps.match.params) {
       const prevId = parseInt(prevProps.match.params.id, 10);
@@ -198,8 +195,15 @@ class App extends React.Component {
             noteCreationAllowed={this.state.noteCreationAllowed}
           />
           <div className="row py-1 no-gutters" style={style}>
-            <NoteSelector
-              notes={this.state.notes}
+            <Route
+              path="/notes/:id?"
+              render={props => (
+                <NoteSelector
+                  notes={this.state.notes}
+                  {...props}
+                  selectedId={this.readSelectedIdFromURL()}
+                />
+              )}
             />
             <div className="col-8 pl-1">
               <Switch>
