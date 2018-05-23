@@ -9,6 +9,16 @@ class TextEditor extends React.Component {
   }
 
   componentDidMount() {
+    this.focusTextArea();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.note.id !== this.props.note.id) {
+      this.focusTextArea();
+    }
+  }
+
+  focusTextArea() {
     if (this.textArea.current) {
       this.textArea.current.focus();
     }
