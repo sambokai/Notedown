@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Moment from 'moment/moment';
 import { Link } from 'react-router-dom';
 
+import scrollIntoView from 'scroll-into-view-if-needed';
 
 class NoteListItem extends React.Component {
   static relativeCalendarFormat = {
@@ -14,6 +15,21 @@ class NoteListItem extends React.Component {
 
   static getRelativeCalendarDate(date) {
     return Moment(date).calendar(null, this.relativeCalendarFormat);
+  }
+
+  constructor(props) {
+    super(props);
+
+    this.listItem = React.createRef();
+  }
+
+  componentDidMount() {
+    if (this.props.isSelected && this.listItem.current) {
+      scrollIntoView(this.listItem.current, {
+        scrollMode: 'if-needed',
+        behavior: 'smooth',
+      });
+    }
   }
 
   getNoteTitle() {
@@ -37,8 +53,8 @@ class NoteListItem extends React.Component {
                 ${this.props.note.body ? '' : 'disabled font-weight-light bg-secondary text-white'}`
           }
       >
-        <div className="d-flex w-100 align-items-center justify-content-between">
-          <p id="note-list-item-title" className="text-truncate pr-2 mb-0">{this.getNoteTitle()}</p>
+        <div className="d-flex w-100 align-items-center justify-content-between" ref={this.listItem}>
+          <p id="note-list-item-title" className="text-truncate pr-2 mb-0" >{this.getNoteTitle()}</p>
           <small >
             {NoteListItem.getRelativeCalendarDate(this.props.note.lastChange)}
           </small>

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Draggable, Droppable } from 'react-beautiful-dnd';
+
 import NoteListItem from './noteslistitem/NoteListItem';
 
 class NoteList extends React.Component {
@@ -10,11 +11,6 @@ class NoteList extends React.Component {
   }
 
   render() {
-    let urlId;
-    if (this.props.match && this.props.match.params) {
-      urlId = parseInt(this.props.match.params.id, 10);
-    }
-
     const style = {
       overflowY: 'scroll',
       height: '90%',
@@ -36,7 +32,7 @@ class NoteList extends React.Component {
                       draggableProvided={draggableProvided}
                       note={note}
                       key={note.id}
-                      isSelected={note.id === urlId}
+                      isSelected={note.id === this.props.selectedId}
                     />
                   )}
                 </Draggable>
@@ -48,16 +44,14 @@ class NoteList extends React.Component {
   }
 }
 
+
 NoteList.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   notes: PropTypes.arrayOf(PropTypes.object).isRequired,
-  // eslint-disable-next-line react/require-default-props
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      id: PropTypes.string,
-    }),
-  }),
   searchQuery: PropTypes.string,
+  // eslint-disable-next-line react/require-default-props
+  selectedId: PropTypes.number,
+
 };
 
 NoteList.defaultProps = {
