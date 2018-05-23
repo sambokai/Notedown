@@ -8,7 +8,7 @@ class ActionBar extends React.Component {
   render() {
     return (
       <nav className="navbar navbar-dark bg-dark justify-content-between">
-        <a className="navbar-brand" href="/">Notedown</a>
+        <a id="navbar-logo" className="navbar-brand" href="/">Notedown</a>
         <form className="form-inline">
           <button
             id="new-note-button"
