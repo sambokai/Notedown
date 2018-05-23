@@ -15,8 +15,7 @@ render(
           <Redirect to="/notes" />
       )}
       />
-      <Route path="/notes/:id" component={App} />
-      <Route path="/notes/" component={App} />
+      <Route path="/notes/:id?" component={App} />
     </Switch>
   </Router>
   , document.getElementById('app'),
