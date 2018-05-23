@@ -11,6 +11,11 @@ script:
 cache:
   directories:
     - "node_modules"
+
+sudo: required
+addons:
+  chrome: stable
+
 deploy:
   provider: s3
   region: eu-central-1
