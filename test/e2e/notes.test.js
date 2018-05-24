@@ -3,7 +3,7 @@ import { Builder, By, until } from 'selenium-webdriver';
 
 import 'chromedriver';
 
-const rootURL = 'localhost:8080';
+const rootURL = 'http://localhost:8080';
 let driver;
 
 const getElementTimeout = 9000;
