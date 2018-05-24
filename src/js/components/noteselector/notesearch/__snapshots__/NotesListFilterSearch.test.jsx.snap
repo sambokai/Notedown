@@ -10,6 +10,7 @@ exports[`<NotesListFilterSearch/> should render correctly 1`] = `
   >
     <input
       class="form-control"
+      id="note-search-input"
       placeholder="Search"
       type="text"
     />

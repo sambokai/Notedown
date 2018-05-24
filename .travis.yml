@@ -1,15 +1,21 @@
+dist: trusty
 language: node_js
 node_js:
 - node
 before_install:
 - npm install -g codecov
 script:
-- npm test
+- npm run test:ci
 - codecov
 - npm run build
 cache:
   directories:
     - "node_modules"
+
+sudo: required
+addons:
+  chrome: stable
+
 deploy:
   provider: s3
   region: eu-central-1

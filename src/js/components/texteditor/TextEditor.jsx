@@ -40,6 +40,7 @@ class TextEditor extends React.Component {
 
     return (
       <textarea
+        id="text-editor-textarea"
         className="w-100 h-100 mousetrap"
         rows={15}
         style={textAreaStyle}
