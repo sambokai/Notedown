@@ -43,6 +43,7 @@ class NoteListItem extends React.Component {
   render() {
     return (
       <Link
+        id="note-list-item"
         innerRef={this.props.draggableProvided.innerRef}
         {...this.props.draggableProvided.draggableProps}
         {...this.props.draggableProvided.dragHandleProps}
