@@ -1,6 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { Builder, By, until } from 'selenium-webdriver';
 
+import 'chromedriver';
 
 const rootURL = 'localhost:8080';
 let driver;
