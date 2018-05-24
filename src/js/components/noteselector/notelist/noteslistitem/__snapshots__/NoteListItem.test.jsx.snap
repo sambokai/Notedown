@@ -6,6 +6,7 @@ exports[`<NoteListItem/> renders correctly if the item is NOT selected 1`] = `
                 
                 "
   href="/notes/99"
+  id="note-list-item"
   onClick={[Function]}
 >
   <div
@@ -17,7 +18,9 @@ exports[`<NoteListItem/> renders correctly if the item is NOT selected 1`] = `
     >
       This is Note #1
     </p>
-    <small>
+    <small
+      id="note-list-item-lastchange-date"
+    >
       01.01.18
     </small>
   </div>
@@ -30,6 +33,7 @@ exports[`<NoteListItem/> renders correctly if the item is selected 1`] = `
                 active
                 "
   href="/notes/99"
+  id="note-list-item"
   onClick={[Function]}
 >
   <div
@@ -41,7 +45,9 @@ exports[`<NoteListItem/> renders correctly if the item is selected 1`] = `
     >
       This is Note #1
     </p>
-    <small>
+    <small
+      id="note-list-item-lastchange-date"
+    >
       01.01.18
     </small>
   </div>
