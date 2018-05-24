@@ -19,7 +19,7 @@ class NoteList extends React.Component {
     return (
       <Droppable droppableId="notesListDroppable">
         {droppableProvided => (
-          <div className="list-group" style={style} ref={droppableProvided.innerRef}>
+          <div id="note-list" className="list-group" style={style} ref={droppableProvided.innerRef}>
             {this.filteredNotes().map((note, index) =>
               (
                 <Draggable

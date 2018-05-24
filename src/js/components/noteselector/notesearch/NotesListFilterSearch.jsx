@@ -10,6 +10,7 @@ function NotesListFilterSearch(props) {
     <div className="form-row" style={style}>
       <div className="col">
         <input
+          id="note-search-input"
           type="text"
           className="form-control"
           placeholder="Search"

@@ -55,7 +55,7 @@ class NoteListItem extends React.Component {
       >
         <div className="d-flex w-100 align-items-center justify-content-between" ref={this.listItem}>
           <p id="note-list-item-title" className="text-truncate pr-2 mb-0" >{this.getNoteTitle()}</p>
-          <small >
+          <small id="note-list-item-lastchange-date" >
             {NoteListItem.getRelativeCalendarDate(this.props.note.lastChange)}
           </small>
         </div>
