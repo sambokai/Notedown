@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import { Builder, By, until } from 'selenium-webdriver';
+import { Builder, By, Capabilities, until } from 'selenium-webdriver';
 
 import 'chromedriver';
 
@@ -13,8 +13,14 @@ async function getElementById(id) {
   return driver.wait(until.elementIsVisible(el), getElementTimeout);
 }
 
+const chromeCapabilities = Capabilities.chrome();
+chromeCapabilities.set('chromeOptions', { args: ['--headless', '--no-sandbox'] });
+
 beforeEach((done) => {
-  driver = new Builder().forBrowser('chrome').build();
+  driver = new Builder()
+    .forBrowser('chrome')
+    .withCapabilities(chromeCapabilities)
+    .build();
 
   driver.get(rootURL).then(done);
 });
