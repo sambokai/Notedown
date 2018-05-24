@@ -5,8 +5,7 @@ node_js:
 before_install:
 - npm install -g codecov
 script:
-- sh ./scripts/run_testserver_bg.sh
-- npm test
+- npm test:ci
 - codecov
 - npm run build
 cache:
