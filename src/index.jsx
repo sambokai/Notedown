@@ -18,5 +18,5 @@ render(
       <Route path="/notes/:id?" component={App} />
     </Switch>
   </Router>
-  , document.getElementById('app'),
+  , document.getElementById('container'),
 );

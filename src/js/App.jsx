@@ -182,19 +182,15 @@ class App extends React.Component {
   }
 
   render() {
-    const style = {
-      height: '450px',
-    };
-
     const components = {
       app: (
-        <div className="container">
+        <div className="h-100 pb-1">
           <ActionBar
             onCreateNote={this.addEmptyNote}
             onDeleteNote={() => this.deleteNote(this.readSelectedIdFromURL())}
             noteCreationAllowed={this.state.noteCreationAllowed}
           />
-          <div className="row py-1 no-gutters" style={style}>
+          <div className="row py-1 no-gutters" id="app-content" >
             <NoteSelector
               notes={this.state.notes}
               selectedId={this.readSelectedIdFromURL()}

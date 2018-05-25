@@ -3,11 +3,8 @@ import PropTypes from 'prop-types';
 
 
 function NotesListFilterSearch(props) {
-  const style = {
-    height: '10%',
-  };
   return (
-    <div className="form-row" style={style}>
+    <div className="form-row pb-1">
       <div className="col">
         <input
           id="note-search-input"

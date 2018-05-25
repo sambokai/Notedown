@@ -5,7 +5,7 @@ exports[`<App/> should render correctly, when notes are existing 1`] = `
   onDragEnd={[Function]}
 >
   <div
-    className="container"
+    className="h-100 pb-1"
   >
     <ActionBar
       noteCreationAllowed={true}
@@ -14,11 +14,7 @@ exports[`<App/> should render correctly, when notes are existing 1`] = `
     />
     <div
       className="row py-1 no-gutters"
-      style={
-        Object {
-          "height": "450px",
-        }
-      }
+      id="app-content"
     >
       <NoteSelector
         notes={
@@ -51,7 +47,7 @@ exports[`<App/> should render correctly, when there are no notes 1`] = `
   onDragEnd={[Function]}
 >
   <div
-    className="container"
+    className="h-100 pb-1"
   >
     <ActionBar
       noteCreationAllowed={true}
@@ -60,11 +56,7 @@ exports[`<App/> should render correctly, when there are no notes 1`] = `
     />
     <div
       className="row py-1 no-gutters"
-      style={
-        Object {
-          "height": "450px",
-        }
-      }
+      id="app-content"
     >
       <NoteSelector
         notes={Array []}
