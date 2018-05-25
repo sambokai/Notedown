@@ -33,7 +33,7 @@ class App extends React.Component {
 
     // Keyboard Shortcuts
     Mousetrap.bind('ctrl+n', this.addEmptyNote);
-    Mousetrap.bind('ctrl+d', () => this.deleteNote(this.readSelectedIdFromURL()));
+    Mousetrap.bind('ctrl+d', () => this.deleteNote(this.readSelectedIdFromURL(), true));
   }
 
   componentWillMount() {
@@ -111,7 +111,7 @@ class App extends React.Component {
   noteSelectionChanged(oldNoteId) {
     // Delete note if it exists, has no body-text and user switches to another one
     if (Object.getOwnPropertyNames(this.getNote(oldNoteId)).length > 0 && !this.getNote(oldNoteId).body) {
-      this.deleteNote(oldNoteId);
+      this.deleteNote(oldNoteId, false);
     }
   }
 
@@ -126,7 +126,7 @@ class App extends React.Component {
     }
   };
 
-  deleteNote = (noteToBeDeletedId) => {
+  deleteNote = (noteToBeDeletedId, shouldSelectPreviousNoteNext) => {
     const noteToBeDeletedObject = this.getNote(noteToBeDeletedId);
 
     // If noteToBeDeleted exists
@@ -135,21 +135,22 @@ class App extends React.Component {
 
       const noteToBeDeletedIndex = this.getNoteIndex(noteToBeDeletedId);
 
-      const previousNoteIndex = noteToBeDeletedIndex - 1; // Find the previous note
-      const previousNoteIndexMinZero = previousNoteIndex >= 0 ? previousNoteIndex : 0; // Clamp to min. 0 index
+      if (shouldSelectPreviousNoteNext) {
+        const previousNoteIndex = noteToBeDeletedIndex - 1; // Find the previous note
+        const previousNoteIndexMinZero = previousNoteIndex >= 0 ? previousNoteIndex : 0; // Clamp to min. 0 index
+
+        // Set next selection, if pointing to nothing (e.x. notes list is empty), unselect
+        const nextSelectionId = (notes[previousNoteIndexMinZero]) ? notes[previousNoteIndexMinZero].id : null;
+        const nextPath = nextSelectionId ? `/notes/${nextSelectionId}` : '/notes';
+        this.props.history.push(nextPath);
+      }
 
       notes.splice(noteToBeDeletedIndex, 1); // Delete note from temporary notes-array
-
-      // Set next selection, if pointing to nothing (e.x. notes list is empty), unselect
-      const nextSelectionId = (notes[previousNoteIndexMinZero]) ? notes[previousNoteIndexMinZero].id : null;
-
-      const nextPath = nextSelectionId ? `/notes/${nextSelectionId}` : '/notes';
 
       this.setState({
         notes,
       });
 
-      this.props.history.push(nextPath);
 
       // If deleted note was empty, allow creation again
       if (noteToBeDeletedObject.body === '') this.setAllowNoteCreation(true);
@@ -187,7 +188,7 @@ class App extends React.Component {
         <div className="h-100 pb-1">
           <ActionBar
             onCreateNote={this.addEmptyNote}
-            onDeleteNote={() => this.deleteNote(this.readSelectedIdFromURL())}
+            onDeleteNote={() => this.deleteNote(this.readSelectedIdFromURL(), true)}
             noteCreationAllowed={this.state.noteCreationAllowed}
           />
           <div className="row py-1 no-gutters" id="app-content" >
