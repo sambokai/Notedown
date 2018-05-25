@@ -2,7 +2,7 @@
     content: "\00a0";
 }
 
-.container {
+.container, .container-fluid {
     height: 100vh;
 }
 
