@@ -7,6 +7,7 @@ import { Controlled as CodeMirror } from 'react-codemirror2';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/material.css';
 import 'codemirror/mode/markdown/markdown';
+import 'codemirror/addon/display/placeholder';
 
 
 class TextEditor extends React.Component {
@@ -22,19 +23,17 @@ class TextEditor extends React.Component {
   render() {
     const codeMirrorOptions = {
       mode: 'markdown',
-      // theme: 'material',
       autofocus: true,
       readOnly: this.emptyNotePassed() ? 'nocursor' : false,
       lineWrapping: true,
+      placeholder: this.emptyNotePassed() ? this.props.noNoteMessage : this.props.placeholder,
     };
 
     return (
       <div className="h-100 row">
         <CodeMirror
-          value={this.emptyNotePassed() ? this.props.noNoteMessage : this.props.note.body}
-          placeholder={this.props.placeholder}
+          value={this.props.note.body}
           onBeforeChange={this.handleChange}
-          onChange={() => {}}
           className="w-100 h-100 mousetrap codemirror-wrapper col-6 texteditor"
           options={codeMirrorOptions}
         />
