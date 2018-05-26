@@ -85,6 +85,9 @@ describe('After fresh loading of the app', () => {
       const noteList = await driver.findElement(selectors.noteList);
       const noteListItems = await noteList.findElements(selectors.noteListItem);
 
+      await textEditorTextarea.isDisplayed();
+      await textEditor.isDisplayed();
+
       textEditor.click();
       textEditorTextarea.sendKeys('    This is the title of this Note. \n \n ' +
         'Yesterday i was going down the street when suddenly a unicorn ...');
