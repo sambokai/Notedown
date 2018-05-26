@@ -4,7 +4,7 @@
 [Live Demo](http://notedown.sambokai.com)
 
 
-## *Y U No Redux??!1*
+## Why not Redux?
 I have decided against using an external state management solution to become more comfortable with React itself. 
 At some point I noticed that I was spending too much time figuring out Redux for very small learning projects, that [don't benefit from extended state management anyway](https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367).  
 
