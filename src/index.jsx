@@ -5,6 +5,8 @@ import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-d
 
 import App from './js/App';
 
+import './css/style.css';
+
 render(
   <Router>
     <Switch>

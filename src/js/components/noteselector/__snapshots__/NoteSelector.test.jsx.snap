@@ -2,7 +2,7 @@
 
 exports[`<NoteSelector/> should render correctly 1`] = `
 <div
-  className="mh-100 col-3 pr-2"
+  className="mh-100 col-2 pr-2"
 >
   <NotesListFilterSearch
     onUpdateSearchQuery={[Function]}

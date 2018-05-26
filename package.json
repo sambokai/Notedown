@@ -4,14 +4,18 @@
   "description": "A learning project using React without Redux.",
   "author": "Sam Bokai",
   "dependencies": {
+    "codemirror": "^5.38.0",
     "moment": "^2.22.1",
     "mousetrap": "^1.6.1",
     "npm": "^6.1.0",
     "prop-types": "^15.6.1",
     "react": "^16.4.0",
     "react-beautiful-dnd": "^7.1.3",
+    "react-codemirror2": "^5.0.2",
     "react-dom": "^16.4.0",
+    "react-markdown": "^3.3.2",
     "react-router-dom": "^4.2.2",
+    "remove-markdown": "^0.2.2",
     "scroll-into-view-if-needed": "^2.2.2"
   },
   "devDependencies": {
@@ -24,6 +28,7 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "chromedriver": "^2.38.3",
+    "css-loader": "^0.28.11",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "enzyme-to-json": "^3.3.4",
@@ -35,10 +40,12 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.8.2",
     "html-webpack-plugin": "^2.30.1",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "^22.4.4",
     "react-test-renderer": "latest",
     "selenium-webdriver": "^4.0.0-alpha.1",
     "start-server-and-test": "^1.4.1",
+    "style-loader": "^0.21.0",
     "webpack": "^3.12.0",
     "webpack-dev-server": "^2.11.2"
   },
@@ -60,6 +67,9 @@
       "!**/jest.setup.js",
       "!src/index.jsx"
     ],
-    "clearMocks": true
+    "clearMocks": true,
+    "moduleNameMapper": {
+      "\\.(css|less)$": "identity-obj-proxy"
+    }
   }
 }

@@ -1,24 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<TextEditor/> should render a disabled html-textarea if NO note is passed 1`] = `
-<textarea
-  class="w-100 h-100 mousetrap"
-  disabled=""
-  id="text-editor-textarea"
-  placeholder="No note selected"
-  rows="15"
-  style="resize:none"
-/>
+<div
+  class="h-100 row"
+>
+  <div
+    class="react-codemirror2 w-100 h-100 mousetrap codemirror-wrapper col-6 texteditor"
+  />
+  <div
+    class="col-6 break-word-children"
+  />
+</div>
 `;
 
 exports[`<TextEditor/> should render correctly if a note is passed 1`] = `
-<textarea
-  class="w-100 h-100 mousetrap"
-  id="text-editor-textarea"
-  placeholder="Write your notes in here..."
-  rows="15"
-  style="resize:none"
+<div
+  class="h-100 row"
 >
-  This is a note.
-</textarea>
+  <div
+    class="react-codemirror2 w-100 h-100 mousetrap codemirror-wrapper col-6 texteditor"
+  />
+  <div
+    class="col-6 break-word-children"
+  >
+    <p>
+      This is a note.
+    </p>
+  </div>
+</div>
 `;

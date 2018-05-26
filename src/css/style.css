@@ -12,5 +12,13 @@
 
 #note-list {
     overflow-y: scroll;
-    height: calc(100% - 42px)
+    height: calc(100% - 42px);
+}
+
+.codemirror-wrapper>.CodeMirror {
+    height: 100%;
+}
+
+.break-word-children * {
+    word-wrap: break-word;
 }

@@ -4,6 +4,7 @@ import Moment from 'moment/moment';
 import { Link } from 'react-router-dom';
 
 import scrollIntoView from 'scroll-into-view-if-needed';
+import removeMd from 'remove-markdown';
 
 class NoteListItem extends React.Component {
   static relativeCalendarFormat = {
@@ -33,11 +34,9 @@ class NoteListItem extends React.Component {
   }
 
   getNoteTitle() {
-    if (this.props.note.body) {
-      return this.props.note.body.match(/(\n|\s)*.*(\n|$)/)[0].trim();
-    }
-
-    return this.props.emptyNoteTitle;
+    return (this.props.note.body)
+      ? removeMd(this.props.note.body.match(/(\n|\s)*.*(\n|$)/)[0].trim())
+      : this.props.emptyNoteTitle;
   }
 
   render() {
@@ -51,7 +50,7 @@ class NoteListItem extends React.Component {
         className={
             `flex-column align-items-center list-group-item list-group-item-action px-2
                 ${(this.props.isSelected) ? 'active' : ''}
-                ${this.props.note.body ? '' : 'disabled font-weight-light bg-secondary text-white'}`
+                ${this.props.note.body ? '' : 'font-weight-light bg-secondary text-white'}`
           }
       >
         <div className="d-flex w-100 align-items-center justify-content-between" ref={this.listItem}>

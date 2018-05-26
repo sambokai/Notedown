@@ -20,7 +20,7 @@ class NoteSelector extends React.Component {
 
   render() {
     return (
-      <div className="mh-100 col-3 pr-2">
+      <div className="mh-100 col-2 pr-2">
         <NotesListFilterSearch onUpdateSearchQuery={this.handleSearchQueryUpdate} />
         <NoteList
           notes={this.props.notes}
