@@ -51,7 +51,7 @@ class NoteListItem extends React.Component {
         className={
             `flex-column align-items-center list-group-item list-group-item-action px-2
                 ${(this.props.isSelected) ? 'active' : ''}
-                ${this.props.note.body ? '' : 'disabled font-weight-light bg-secondary text-white'}`
+                ${this.props.note.body ? '' : 'font-weight-light bg-secondary text-white'}`
           }
       >
         <div className="d-flex w-100 align-items-center justify-content-between" ref={this.listItem}>

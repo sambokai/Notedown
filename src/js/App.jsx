@@ -196,7 +196,7 @@ class App extends React.Component {
               notes={this.state.notes}
               selectedId={this.readSelectedIdFromURL()}
             />
-            <div className="col-9 pl-1">
+            <div className="col-10 pl-1">
               <TextEditor
                 note={this.getNote(this.readSelectedIdFromURL())}
                 onUpdateNote={newText => this.handleTextEditorNoteUpdate(newText, this.readSelectedIdFromURL())}

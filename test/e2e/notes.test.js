@@ -24,7 +24,8 @@ const quitDriverAndClearLocalStorage = (done) => {
 
 describe('After fresh loading of the app', () => {
   const selectors = {
-    textArea: By.id('text-editor-textarea'),
+    textEditor: By.css('.texteditor'),
+    textEditorTextarea: By.css('.texteditor textarea'),
     newNoteButton: By.id('new-note-button'),
     noteList: By.id('note-list'),
     noteListItem: By.id('note-list-item'),
@@ -35,9 +36,9 @@ describe('After fresh loading of the app', () => {
     beforeAll(initializeDriver);
     afterAll(quitDriverAndClearLocalStorage);
 
-    test('textarea should be deactivated / non-focusable', async () => {
-      const textArea = await driver.findElement(selectors.textArea);
-      expect(await textArea.isEnabled()).toBe(false);
+    test('textEditor should be deactivated / non-focusable', async () => {
+      const textEditorTextarea = await driver.findElement(selectors.textEditorTextarea);
+      expect(await textEditorTextarea.isEnabled()).toBe(false);
     });
 
     test('new-note button should be activated / clickable and add a note to the list', async () => {
@@ -73,18 +74,19 @@ describe('After fresh loading of the app', () => {
       expect(noteListItems).toHaveLength(1);
     });
 
-    test('textarea should be active / focusable', async () => {
-      const textArea = await driver.findElement(selectors.textArea);
-      expect(await textArea.isEnabled()).toBe(true);
+    test('textEditor should be active / focusable', async () => {
+      const textEditorTextarea = await driver.findElement(selectors.textEditorTextarea);
+      expect(await textEditorTextarea.isEnabled()).toBe(true);
     });
 
     test("selected note title should show first line of the note's body", async () => {
-      const textArea = await driver.findElement(selectors.textArea);
+      const textEditor = await driver.findElement(selectors.textEditor);
+      const textEditorTextarea = await driver.findElement(selectors.textEditorTextarea);
       const noteList = await driver.findElement(selectors.noteList);
       const noteListItems = await noteList.findElements(selectors.noteListItem);
 
-      textArea.click();
-      textArea.sendKeys('    This is the title of this Note. \n \n ' +
+      textEditor.click();
+      textEditorTextarea.sendKeys('    This is the title of this Note. \n \n ' +
         'Yesterday i was going down the street when suddenly a unicorn ...');
 
       const noteListItem = await noteListItems[0].findElements(selectors.noteListItemTitle).then(elements => elements[0]);

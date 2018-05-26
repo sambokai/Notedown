@@ -1,31 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import ReactMarkdown from 'react-markdown';
+import { Controlled as CodeMirror } from 'react-codemirror2';
+
+import 'codemirror/lib/codemirror.css';
+import 'codemirror/theme/material.css';
+import 'codemirror/mode/markdown/markdown';
+
+
 class TextEditor extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.textArea = React.createRef();
-  }
-
-  componentDidMount() {
-    this.focusTextArea();
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.note.id !== this.props.note.id) {
-      this.focusTextArea();
-    }
-  }
-
-  focusTextArea() {
-    if (this.textArea.current) {
-      this.textArea.current.focus();
-    }
-  }
-
-  handleChange = (e) => {
-    this.props.onUpdateNote(e.target.value);
+  handleChange = (editor, data, value) => {
+    this.props.onUpdateNote(value);
   };
 
   emptyNotePassed() {
@@ -34,24 +20,26 @@ class TextEditor extends React.Component {
 
 
   render() {
-    const textAreaStyle = {
-      resize: 'none',
+    const codeMirrorOptions = {
+      mode: 'markdown',
+      // theme: 'material',
+      autofocus: true,
+      readOnly: this.emptyNotePassed() ? 'nocursor' : false,
+      lineWrapping: true,
     };
 
     return (
-      <textarea
-        id="text-editor-textarea"
-        className="w-100 h-100 mousetrap"
-        rows={15}
-        style={textAreaStyle}
-        placeholder={
-          (this.props.note.id) ? this.props.placeholder : this.props.noNoteMessage
-        }
-        disabled={this.emptyNotePassed()}
-        value={this.emptyNotePassed() ? '' : this.props.note.body}
-        onChange={this.handleChange}
-        ref={this.textArea}
-      />
+      <div className="h-100 row">
+        <CodeMirror
+          value={this.emptyNotePassed() ? this.props.noNoteMessage : this.props.note.body}
+          placeholder={this.props.placeholder}
+          onBeforeChange={this.handleChange}
+          onChange={() => {}}
+          className="w-100 h-100 mousetrap codemirror-wrapper col-6 texteditor"
+          options={codeMirrorOptions}
+        />
+        <ReactMarkdown source={this.props.note.body} className="col-6 break-word-children" />
+      </div>
     );
   }
 }
