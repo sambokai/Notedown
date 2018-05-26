@@ -4,6 +4,7 @@ import Moment from 'moment/moment';
 import { Link } from 'react-router-dom';
 
 import scrollIntoView from 'scroll-into-view-if-needed';
+import removeMd from 'remove-markdown';
 
 class NoteListItem extends React.Component {
   static relativeCalendarFormat = {
@@ -33,11 +34,9 @@ class NoteListItem extends React.Component {
   }
 
   getNoteTitle() {
-    if (this.props.note.body) {
-      return this.props.note.body.match(/(\n|\s)*.*(\n|$)/)[0].trim();
-    }
-
-    return this.props.emptyNoteTitle;
+    return (this.props.note.body)
+      ? removeMd(this.props.note.body.match(/(\n|\s)*.*(\n|$)/)[0].trim())
+      : this.props.emptyNoteTitle;
   }
 
   render() {
