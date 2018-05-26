@@ -51,8 +51,10 @@
   },
   "scripts": {
     "test": "jest",
-    "test:watch": "jest --watchAll",
+    "test:watch": "npm run test:unit -- --watchAll",
     "test:ci": "start-server-and-test dev http-get://localhost:8080 test",
+    "test:unit": "jest --testPathIgnorePatterns='/test/e2e/'",
+    "test:e2e": "jest --testPathPattern='/test/e2e/'",
     "build": "webpack",
     "dev": "webpack-dev-server"
   },
