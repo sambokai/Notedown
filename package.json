@@ -65,7 +65,6 @@
     "collectCoverageFrom": [
       "src/**/*.{js,jsx}",
       "!**/node_modules/**",
-      "!**/vendor/**",
       "!**/jest.setup.js",
       "!src/index.jsx"
     ],
