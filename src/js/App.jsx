@@ -25,7 +25,11 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      notes: [],
+      notes: [
+        new Note('# Notedown\nWrite notes using **Markdown**.\n\n-------\n' +
+          'Try it yourself: [Markdown Guide](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)\n\n' +
+          '[This project\'s source code](https://github.com/sambokai/Notedown)'),
+      ],
       noteCreationAllowed: true,
       noNoteSelectedMessage: 'Please select a note to display it.',
       noExistingNotesMessage: "Create a new note by clicking the 'New Note' Button",
