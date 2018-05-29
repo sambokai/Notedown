@@ -68,10 +68,6 @@ class App extends React.Component {
     });
   };
 
-  setAllowNoteCreation = (bool) => {
-    this.setState({ noteCreationAllowed: bool });
-  };
-
   getNote(id) {
     return this.state.notes.find(note => note.id === id) || {};
   }
@@ -121,7 +117,7 @@ class App extends React.Component {
       this.setState(prevState => ({
         notes: [...prevState.notes, newNote.valueOf()],
       }));
-      this.setAllowNoteCreation(false);
+      this.setState({ noteCreationAllowed: false });
       this.props.history.push(`/notes/${newNote.id}`);
     }
   };
@@ -153,7 +149,7 @@ class App extends React.Component {
 
 
       // If deleted note was empty, allow creation again
-      if (noteToBeDeletedObject.body === '') this.setAllowNoteCreation(true);
+      if (noteToBeDeletedObject.body === '') this.setState({ noteCreationAllowed: true });
     }
   };
 
@@ -169,7 +165,7 @@ class App extends React.Component {
     }
 
     // If the (new) body is empty, disallow creation of new notes.
-    this.setAllowNoteCreation(newText !== '');
+    this.setState({ noteCreationAllowed: newText !== '' });
   };
 
   dragDropContext(content) {
