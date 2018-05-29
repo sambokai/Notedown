@@ -1,7 +1,12 @@
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import setLocalStorageMock from './mocks/localStorageMock';
+import './mocks/localStorageMock';
+import * as Note from '../src/js/model/Note';
 
-setLocalStorageMock();
+
+beforeEach(() => {
+  localStorage.clear();
+  Note.reset();
+});
 
 Enzyme.configure({ adapter: new Adapter() });

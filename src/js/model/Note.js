@@ -9,6 +9,8 @@ const increment = () => {
   return noteIdCounter;
 };
 
+export const reset = () => { noteIdCounter = 0; };
+
 class Note {
   /**
    * Instantiates a Note from a 'dumb' JS object.
