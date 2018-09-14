@@ -8,9 +8,9 @@ script:
 - npm run test:ci
 - codecov
 - npm run build
-cache:
-  directories:
-    - "node_modules"
+#cache:
+#  directories:
+#    - "node_modules"
 
 sudo: required
 addons:
