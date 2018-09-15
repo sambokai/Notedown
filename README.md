@@ -1,5 +1,5 @@
 ###### Learning Project
-# Notedown &nbsp; [![Build Status](https://travis-ci.com/sambokai/Notedown.svg?token=B3c5dqi77zsc6HReanrw&branch=master)](https://travis-ci.com/sambokai/Notedown) [![codecov](https://codecov.io/gh/sambokai/Notedown/branch/master/graph/badge.svg?token=Ak3YxHVPFs)](https://codecov.io/gh/sambokai/Notedown)
+# Notedown &nbsp; [![Build Status](https://travis-ci.com/sambokai/Notedown.svg?token=B3c5dqi77zsc6HReanrw&branch=master)](https://travis-ci.com/sambokai/Notedown) [![codecov](https://codecov.io/gh/sambokai/Notedown/branch/master/graph/badge.svg?token=Ak3YxHVPFs)](https://codecov.io/gh/sambokai/Notedown) [![Website Availability Status](https://img.shields.io/website-up-down-brightgreen-red/https/notedown.sambokai.com.svg?label=website)](https://status.notedown.sambokai.com) 
 
 [Live Demo](https://notedown.sambokai.com)
 
