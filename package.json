@@ -19,14 +19,15 @@
     "scroll-into-view-if-needed": "^2.2.16"
   },
   "devDependencies": {
+    "@babel/core": "^7.0.1",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
     "@types/jest": "^22.2.3",
-    "babel-core": "^6.26.3",
+    "babel-core": "^7.0.0-beta.3",
     "babel-eslint": "^8.2.6",
     "babel-jest": "^22.4.4",
-    "babel-loader": "^7.1.5",
+    "babel-loader": "^8.0.2",
     "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1",
     "chromedriver": "^2.41.0",
     "css-loader": "^0.28.11",
     "enzyme": "^3.6.0",
@@ -48,7 +49,8 @@
     "style-loader": "^0.21.0",
     "webpack": "^4.19.0",
     "webpack-cli": "^3.1.0",
-    "webpack-dev-server": "3.1.8"
+    "webpack-dev-server": "3.1.8",
+    "webpack-merge": "^4.1.4"
   },
   "scripts": {
     "test": "jest",
@@ -56,8 +58,8 @@
     "test:ci": "start-server-and-test dev http-get://localhost:8080 test",
     "test:unit": "jest --testPathIgnorePatterns='/test/e2e/'",
     "test:e2e": "jest --testPathPattern='/test/e2e/'",
-    "build": "webpack",
-    "dev": "webpack-dev-server"
+    "build": "webpack --config webpack.prod.js",
+    "dev": "webpack-dev-server --config webpack.dev.js"
   },
   "jest": {
     "setupTestFrameworkScriptFile": "./test/jest.setup.js",

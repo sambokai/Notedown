@@ -32,17 +32,7 @@ module.exports = {
       { test: /\.css$/, use: [{ loader: 'style-loader' }, { loader: 'css-loader' }] }],
   },
 
-  // Enable importing JS files without specifying their's extenstion -> ADDED IN THIS STEP
-  //
-  // So we can write:
-  // import MyComponent from './my-component';
-  //
-  // Instead of:
-  // import MyComponent from './my-component.jsx';
   resolve: {
     extensions: ['.js', '.jsx'],
-  },
-  devServer: {
-    historyApiFallback: true,
   },
 };

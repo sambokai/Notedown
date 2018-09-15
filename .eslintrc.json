@@ -10,6 +10,6 @@
   "rules": {
     "no-underscore-dangle": "off",
     "max-len": ["warn", {"code": 125, "comments": 140}],
-    "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/jest.setup.js", "**/*.test.{js,jsx}"]}]
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/jest.setup.js", "**/*.test.{js,jsx}", "**/webpack.*.js"]}]
   }
 }
